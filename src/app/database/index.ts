@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import { newLocalDB } from "./local.db";
+import { Observer, useObserver } from "../util/observer";
 dotenv.config();
 
 mongoose.Promise = global.Promise;
@@ -12,7 +13,9 @@ const DB_SCHEMA = process.env.DB_SCHEMA || "";
 
 type ID = mongoose.Schema.Types.ObjectId | null | String;
 
-let db: typeof mongoose;
+const observer = useObserver()
+// @ts-expect-error
+let db: typeof mongoose = newLocalDB()
 
 function onError() {
   console.log(`[Database] Database local started`);
@@ -20,18 +23,24 @@ function onError() {
   db = newLocalDB();
 }
 
+function subscribeObs(obs: Observer) {
+  observer.subscribeObserver(obs)
+}
+
 function newConnection() {
   try {
     mongoose
-      .connect(`${DB_DRIVER}://${DB_HOST}:${DB_PORT}/${DB_SCHEMA}`)
+      .connect(`${DB_DRIVER}://${DB_HOST}:${DB_PORT}/${DB_SCHEMA}`).then(res => {
+        db = mongoose;
+        observer.notifyObs({ code: "$database/connection/success" })
+        console.log(`[Database] Database started`);
+      })
       .catch((err) => {
-        console.log(`[Database] Database lose connection`);
+        console.log(`[Database] Database failed connection`);
+        observer.notifyObs({ code: "$database/connection/failed" })
         onError();
       });
 
-    console.log(`[Database] Database started`);
-
-    db = mongoose;
   } catch (err) {
     console.log(`[Database] Database lose connection`);
     onError();
@@ -40,4 +49,4 @@ function newConnection() {
 
 newConnection();
 
-export { db, ID };
+export { db, ID, subscribeObs };
