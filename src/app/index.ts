@@ -7,7 +7,7 @@ import { InterfaceRouter } from "./router"
 const app = express()
 
 const MAP_ROUTERS: InterfaceRouter[] = [
-    { paths: routersUser, baseURL: userBaseURL },
+    { paths: routersUser, baseURL: userBaseURL }, // users
 ]
 
 function newRouter({ baseURL, paths }: InterfaceRouter) {
@@ -16,16 +16,18 @@ function newRouter({ baseURL, paths }: InterfaceRouter) {
     paths.forEach((_path) => {
         if (!router[`${_path.type}`]) { throw new Error(`Type request HTTP "${_path.type}" not valid`) }
 
-        router[`${_path.type}`](`${_path.url}`, (req, res) => {
+        router[`${_path.type}`](`${_path.url}`, async (req, res) => {
             try {
                 const { body, params, headers } = req
 
-                const response = _path.listener({ body, params, headers })
+                const response = await _path.listener({ body, params, headers })
 
-                res.status(response.status).send(response.data || {})
+                if (response.status) { return res.status(response.status).send(response.data || {}) }
+
+                return res.send(response.data || {})
             } catch (err) {
                 console.log(err)
-                res.status(500).send({ ok: false })
+                return res.status(500).send({ ok: false })
             }
         })
     })

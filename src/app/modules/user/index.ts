@@ -6,14 +6,18 @@ const routersUser: TRouterPath[] = [
     {
         type: "get",
         url: "/",
-        listener: (req) => {
+        listener: async (req) => {
             return { status: 200, data: { ok: true } }
         },
     },
     {
         type: "post",
         url: "/register",
-        listener: ({ body }) => UCRegisterUser(body),
+        listener: async ({ body }) => {
+            const response = await UCRegisterUser(body)
+
+            return response
+        },
     },
 ]
 

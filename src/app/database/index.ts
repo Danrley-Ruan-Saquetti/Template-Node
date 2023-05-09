@@ -1,4 +1,6 @@
 import db from "mongoose"
+import dotenv from "dotenv"
+dotenv.config()
 
 type ID = db.Schema.Types.ObjectId | null
 
