@@ -3,9 +3,10 @@ import { MListUsers } from "../../model/list";
 import { IUser } from "../../schema";
 
 export const UCListUsers: IUCFunction = async ({
-  email,
-  name,
-}: Partial<IUser>) => {
+  filters: { email, name },
+}: {
+  filters: Partial<IUser>;
+}) => {
   const response = await MListUsers({ email, name });
 
   if (response.error) {
