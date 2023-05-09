@@ -7,7 +7,7 @@ import { InterfaceRouter } from "./router"
 const app = express()
 
 const MAP_ROUTERS: InterfaceRouter[] = [
-    { paths: routersUser, baseURL: userBaseURL }, // users
+    // { paths: routersUser, baseURL: userBaseURL }, // users
 ]
 
 function newRouter({ baseURL, paths }: InterfaceRouter) {
