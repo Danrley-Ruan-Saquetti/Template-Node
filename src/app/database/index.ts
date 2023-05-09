@@ -1,10 +1,16 @@
-import db from "mongoose"
-import dotenv from "dotenv"
-dotenv.config()
+// import db from "mongoose"
+// import dotenv from "dotenv"
+// dotenv.config()
 
-type ID = db.Schema.Types.ObjectId | null
+import { newLocalDB } from "./local.db";
 
-db.connect(process.env.DB_URL_CONNECTION || "")
-db.Promise = global.Promise
+// type ID = db.Schema.Types.ObjectId | null
 
-export { db, ID }
+// db.connect(process.env.DB_URL_CONNECTION || "")
+// db.Promise = global.Promise
+
+type ID = String | null;
+
+const db = newLocalDB();
+
+export { db, ID };

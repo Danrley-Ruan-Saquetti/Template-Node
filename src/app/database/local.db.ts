@@ -1,14 +1,10 @@
-import { generatedId } from "../modules/user/util/generated-id";
+import { generatedId } from "../util/generated-id";
 import { ErrorGeneral } from "../util/error";
 
 export type CollectionName = string;
-export type CollectionType = {
-  [nameAttribute: string]: any;
-};
 export interface Collection {
   name: CollectionName;
   data: any[];
-  type: any;
 }
 export interface TLogUpdate {
   matchedCount: number;
@@ -295,16 +291,17 @@ export function newLocalDB() {
   };
 
   const connectCollection = (coll: Collection) => {
-    const insertOne = (data: typeof coll.type) => {
-      localData[coll.name].data.push({
+    const insertOne = (data: any) => {
+      const newData = {
         _id: generatedId(),
         ...data,
-      });
+      };
+      localData[coll.name].data.push(newData);
 
-      return data;
+      return newData;
     };
 
-    const insertMany = (datas: (typeof coll.type)[]) => {
+    const insertMany = (datas: any[]) => {
       datas.forEach((_data) => insertOne(_data));
     };
 
@@ -314,10 +311,18 @@ export function newLocalDB() {
 
     const find = (filters?: { [nameAttribute: string]: any }) => {
       let collList: any[] = [];
-      if (filters) {
+      if (
+        filters &&
+        Object.keys(filters).some((key) => {
+          return typeof filters[key] != "undefined";
+        })
+      ) {
         localData[coll.name].data.forEach((_data) => {
+          let isValid = true;
           for (const key in filters) {
-            let isValid = true;
+            if (typeof filters[key] == "undefined") {
+              continue;
+            }
             if (Array.isArray(_data[key])) {
               if (typeof filters[key] == "object") {
                 for (const key_1 in filters[key]) {
@@ -332,6 +337,7 @@ export function newLocalDB() {
                     );
                   } else {
                     isValid = false;
+                    break;
                   }
                 }
               } else if (_data[key] != filters[key]) {
@@ -353,12 +359,14 @@ export function newLocalDB() {
                   filters[key]
                 );
                 isValid = false;
+                break;
               } else if (_data[key] != filters[key]) {
                 isValid = false;
+                break;
               }
             }
-            isValid && collList.push(_data);
           }
+          isValid && collList.push(_data);
         });
       } else {
         collList = localData[coll.name].data;
@@ -522,23 +530,43 @@ export function newLocalDB() {
 
     return {
       insertOne,
+      create: async (data: any) => {
+        const res = await insertOne(data);
+        return res;
+      },
       insertMany,
       drop,
-      find,
-      findOne,
-      updateOne,
+      find: async (filters?: { [nameAttribute: string]: any }) => {
+        const res = await find(filters);
+        return res;
+      },
+      findOne: async (filters?: { [nameAttribute: string]: any }) => {
+        const res = await findOne(filters);
+        return res;
+      },
+      updateOne: async (
+        filters: { [nameAttribute: string]: any },
+        value: { [nameAttribute: string]: any }
+      ) => {
+        const res = await updateOne(filters, value);
+        return res;
+      },
+      insertOneSpec: insertOne,
+      createSpec: insertOne,
+      insertManySpec: insertMany,
+      dropSpec: drop,
+      findSpec: find,
+      findOneSpec: findOne,
+      updateOneSpec: updateOne,
     };
   };
 
-  const newCollection = (
-    collectionName: CollectionName,
-    collectionType: CollectionType
-  ) => {
+  const newCollection = (collectionName: CollectionName) => {
     let coll: Collection | null =
       getCollection(collectionName).collection || null;
 
     if (!coll) {
-      coll = { name: collectionName, data: [], type: collectionType };
+      coll = { name: collectionName, data: [] };
       localData[collectionName] = coll;
     }
 
