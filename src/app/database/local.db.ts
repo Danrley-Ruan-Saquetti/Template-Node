@@ -561,7 +561,7 @@ export function newLocalDB() {
     };
   };
 
-  const newCollection = (collectionName: CollectionName) => {
+  const model = (collectionName: CollectionName) => {
     let coll: Collection | null =
       getCollection(collectionName).collection || null;
 
@@ -623,7 +623,7 @@ export function newLocalDB() {
 
   return {
     localData,
-    newCollection,
+    model,
     dropDatabase,
   };
 }
