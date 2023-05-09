@@ -1,24 +1,27 @@
-import { TRouterPath } from "../../router"
-import { UCRegisterUser } from "./use-cases/register"
+import { TRouterPath } from "../../router";
+import { UCListUsers } from "./use-cases/list";
+import { UCRegisterUser } from "./use-cases/register";
 
-const userBaseURL = "users"
+const userBaseURL = "users";
 const routersUser: TRouterPath[] = [
-    {
-        type: "get",
-        url: "/",
-        listener: async (req) => {
-            return { status: 200, data: { ok: true } }
-        },
-    },
-    {
-        type: "post",
-        url: "/register",
-        listener: async ({ body }) => {
-            const response = await UCRegisterUser(body)
+  {
+    type: "get",
+    url: "/",
+    listener: async ({ body }) => {
+      const response = await UCListUsers(body);
 
-            return response
-        },
+      return response;
     },
-]
+  },
+  {
+    type: "post",
+    url: "/register",
+    listener: async ({ body }) => {
+      const response = await UCRegisterUser(body);
 
-export { routersUser, userBaseURL }
+      return response;
+    },
+  },
+];
+
+export { routersUser, userBaseURL };

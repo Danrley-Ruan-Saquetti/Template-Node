@@ -1,11 +1,15 @@
 import { app } from "./app/index";
 import { createServer } from "http";
+import dotenv from "dotenv";
+dotenv.config();
 
 const server = createServer(app);
-const PORT = 8080;
+const PORT = process.env.PORT || 8080;
 
 function App() {
-    console.log(`Server running on URL: http://localhost:${PORT}`);
+  console.log(
+    `[Server] Server running on URL: ${process.env.URL_SERVER}:${PORT}`
+  );
 }
 
 server.listen(PORT, App);
