@@ -1,19 +1,15 @@
-import { IUCFunction } from "../../../uc";
-import { MListUsers } from "../../model/list";
-import { IUser } from "../../schema";
+import { IUCFunction } from '../../../uc'
+import { MListUsers } from '../../model/list'
+import { IUser } from '../../schema'
 
-export const UCListUsers: IUCFunction = async ({
-  filters: { email, name },
-}: {
-  filters: Partial<IUser>;
-}) => {
-  const response = await MListUsers({ email, name });
+export const UCListUsers: IUCFunction = async ({ filters: { email, name } }: { filters: Partial<IUser> }) => {
+  const response = await MListUsers({ email, name })
 
   if (response.error) {
-    return { data: { ...response }, status: response.error.status };
+    return { data: { ...response }, status: response.error.status }
   }
 
-  const { users } = response;
+  const { users } = response
 
-  return { status: 200, data: { users } };
-};
+  return { status: 200, data: { users } }
+}

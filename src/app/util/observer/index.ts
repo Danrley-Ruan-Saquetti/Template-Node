@@ -1,4 +1,4 @@
-export type Observer = { obsFunction: <T>(data?: T) => void, code: String }
+export type Observer = { obsFunction: <T>(data?: T) => void, code: string }
 
 export function useObserver() {
     const observers: Observer[] = []
@@ -7,7 +7,7 @@ export function useObserver() {
         observers.push(obs)
     }
 
-    const notifyObs = <T>({ code, data }: { data?: T, code: String }) => {
+    const notifyObs = <T>({ code, data }: { data?: T, code: string }) => {
         observers.filter(obs => { return obs.code == code }).forEach(obs => {
             setTimeout(() => {
                 obs.obsFunction({ data })

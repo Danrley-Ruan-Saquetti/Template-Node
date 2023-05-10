@@ -1,5 +1,5 @@
-import crypto from "crypto"
+import crypto from 'crypto'
 
 export function generatedId() {
-    return crypto.randomBytes(20).toString("hex")
+    return crypto.randomBytes(20).toString('hex')
 }
