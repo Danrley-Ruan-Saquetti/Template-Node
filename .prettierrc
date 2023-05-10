@@ -8,7 +8,7 @@
     "embeddedLanguageFormatting": "auto",
     "endOfLine": "crlf",
     "htmlWhitespaceSensitivity": "css",
-    "printWidth": 80,
+    "printWidth": 160,
     "proseWrap": "preserve",
     "quoteProps": "preserve",
     "semi": false,

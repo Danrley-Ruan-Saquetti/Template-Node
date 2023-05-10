@@ -18,34 +18,34 @@ const observer = useObserver()
 let db: typeof mongoose = newLocalDB()
 
 function onError() {
-	console.log('[Database] Database local started')
-	// @ts-expect-error
-	db = newLocalDB()
+    console.log('[Database] Database local started')
+    // @ts-expect-error
+    db = newLocalDB()
 }
 
-
 function subscribeObs(obs: Observer) {
-	observer.subscribeObserver(obs)
+    observer.subscribeObserver(obs)
 }
 
 function newConnection() {
-	try {
-		mongoose
-			.connect(`${DB_DRIVER}://${DB_HOST}:${DB_PORT}/${DB_SCHEMA}`).then(res => {
-				db = mongoose
-				observer.notifyObs({ code: '$database/connection/success' })
-				console.log('[Database] Database started')
-			})
-			.catch((err) => {
-				console.log('[Database] Database failed connection')
-				observer.notifyObs({ code: '$database/connection/failed' })
-				onError()
-			})
-
-	} catch (err) {
-		console.log('[Database] Database lose connection')
-		onError()
-	}
+    try {
+        // mongoose
+        //     .connect(`${DB_DRIVER}://${DB_HOST}:${DB_PORT}/${DB_SCHEMA}`)
+        //     .then(res => {
+        //         db = mongoose
+        //         observer.notifyObs({ code: '$database/connection/success' })
+        //         console.log('[Database] Database started')
+        //     })
+        //     .catch(err => {
+        //         observer.notifyObs({ code: '$database/connection/failed' })
+        //         console.log('[Database] Database failed connection')
+        //         onError()
+        //     })
+        onError()
+    } catch (err) {
+        console.log('[Database] Database failed connection')
+        onError()
+    }
 }
 
 newConnection()
