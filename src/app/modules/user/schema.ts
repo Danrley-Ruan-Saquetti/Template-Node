@@ -11,6 +11,7 @@ const UserSchema = z.object({
         .regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#/\\|])[A-Za-z\d@$!%*?&#/\\|]+$/, {
             message: 'The password must contain at least one uppercase letter, one lowercase letter, one number, and one special character.',
         }),
+    techs: z.array(z.string()),
 })
 
 type IUser = z.infer<typeof UserSchema>

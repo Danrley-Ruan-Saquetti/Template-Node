@@ -76,7 +76,7 @@ test('Memory: Filter array', async () => {
 
     await registerValues(userModel)
 
-    const filter1 = await userModel.findOne({ name: 'Dan', email: 'dan@gmail.com', age: 19 })
+    const filter1 = await userModel.findOne({ techs: {} })
 
     console.log(filter1)
 })

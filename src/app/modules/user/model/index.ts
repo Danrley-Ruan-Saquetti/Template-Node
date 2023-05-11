@@ -15,6 +15,9 @@ const UserSchema = new mongoose.Schema<TDBUser>({
         type: String,
         require: true,
     },
+    techs: {
+        type: String[]
+    },
     createAt: {
         type: Date,
         default: new Date(Date.now()),
