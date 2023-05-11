@@ -8,7 +8,7 @@
         "dev": "tsx watch src/index.ts",
         "database:memory": "tsx watch src/app/database/local.db.ts",
         "test": "vitest",
-        "test:database:memory": "vitest src/app/database/local.db.spec.ts",
+        "test:database:memory": "vitest src/app/features/memory/memory.spec.ts",
         "feature:memory": "tsx watch src/app/features/memory/index.ts",
         "valid:lint": "eslint \"**/*.ts\"",
         "fix:lint": "eslint --fix ."
@@ -44,6 +44,7 @@
         "crypto": "^1.0.1",
         "dotenv": "^16.0.3",
         "express": "^4.18.2",
+        "mongodb-memory-server": "^8.12.2",
         "mongoose": "^7.1.0",
         "prettier": "^2.8.8",
         "tsup": "^6.7.0",

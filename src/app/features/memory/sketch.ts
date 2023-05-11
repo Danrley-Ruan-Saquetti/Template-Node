@@ -1,90 +1,85 @@
-import mongoose, { Model, Schema as TypeSchema, SchemaDefinition } from 'mongoose'
-import { EventEmitter } from 'events'
+import { Schema, Model as ModelDefinition, SchemaDefinition, Document, ObjectId, FilterQuery, UpdateQuery, Query } from 'mongoose'
+import { DeleteResult, UpdateQueryResult } from 'mongodb'
 
-class InMemoryDatabase extends EventEmitter {
-    private _models: { [key: string]: Model<any> } = {}
-    private _data: { [key: string]: any[] } = {}
-    private _connected = false
+export interface IModel<T> extends Partial<ModelDefinition<T>> {
+    documents: SchemaDefinition<T>[]
+    aggregate(pipeline?: any[]): Query<T[], T>
+    create(doc: T): Promise<T & Document<any, any, T>>
+    deleteMany(filter: FilterQuery<T>): Query<DeleteResult, T>
+    deleteOne(filter: FilterQuery<T>): Query<DeleteResult, T>
+    find(filter?: FilterQuery<T>): Query<T[], T>
+    findById(id: string | number | ObjectId | any): Query<T | null, T>
+    updateMany(filter: FilterQuery<T>, update: UpdateQuery<T>): Query<UpdateQueryResult, T>
+    updateOne(filter: FilterQuery<T>, update: UpdateQuery<T>): Query<UpdateQueryResult, T>
+}
 
-    async connect(): Promise<void> {
-        this._connected = true
-        this.emit('connected')
-    }
+export interface DocumentDefination extends Document {
+    createAt?: Date
+}
 
-    async disconnect(): Promise<void> {
-        this._connected = false
-        this.emit('disconnected')
-    }
+class SchemaOptions {
+    versionKey: boolean
 
-    model<T>(name: string, schema: TypeSchema): Model<T> {
-        if (this._models[name]) {
-            return this._models[name] as Model<T>
-        }
-        const model = mongoose.model(name, schema) as Model<T>
-        this._models[name] = model
-        this._data[name] = []
-        return model
-    }
-
-    Schema(obj: SchemaDefinition): TypeSchema {
-        return new mongoose.Schema(obj)
-    }
-
-    async save<T>(name: string, doc: T): Promise<T> {
-        this._data[name].push(doc)
-        return doc
-    }
-
-    async find<T>(name: string, query: any): Promise<T[]> {
-        return this._data[name].filter((doc) => {
-            return Object.keys(query).every((key) => {
-                return query[key] === doc[key]
-            })
-        })
-    }
-
-    async findOne<T>(name: string, query: any): Promise<T> {
-        const result = await this.find<T>(name, query)
-        return result[0]
+    constructor() {
+        this.versionKey = false
     }
 }
 
-const db = new InMemoryDatabase()
+export class Model<T> implements IModel<T> {
+    documents: SchemaDefinition<T>[]
 
-async function MUser() {
-    await db.connect().then(res => {
-        console.log(res)
-    })
-
-    const UserSchema = db.Schema({
-        name: String,
-        age: Number,
-        email: String,
-    })
-
-    interface IUser {
-        name: string;
-        age: number;
-        email: string;
+    constructor(collectionName: string, schema: SchemaDefinition<T>) {
+        this.documents = []
     }
 
-    const UserModel = db.model<IUser>('User', UserSchema)
-
-    const result1 = await UserModel.findOne({ name: 'João' })
-
-    console.log(result1)
-
-    const user: IUser = {
-        name: 'João',
-        age: 30,
-        email: 'joao@example.com',
+    aggregate(pipeline?: any[]): Query<T[], T> {
+        return null as any // Implementação do método
     }
 
-    await UserModel.create(user)
+    create(doc: T): Promise<T & Document<any, any, T>> {
+        return null as any // Implementação do método
+    }
 
-    const result = await UserModel.findOne({ name: 'João' })
+    deleteMany(filter: FilterQuery<T>): Query<DeleteResult, T> {
+        return null as any // Implementação do método
+    }
 
-    await db.disconnect()
+    deleteOne(filter: FilterQuery<T>): Query<DeleteResult, T> {
+        return null as any // Implementação do método
+    }
+
+    find(filter?: FilterQuery<T>): Query<T[], T> {
+        return null as any // Implementação do método
+    }
+
+    findById(id: string | number | ObjectId | any): Query<T | null, T> {
+        return null as any // Implementação do método
+    }
+
+    updateMany(filter: FilterQuery<T>, update: UpdateQuery<T>): Query<UpdateQueryResult, T> {
+        return null as any // Implementação do método
+    }
+
+    updateOne(filter: FilterQuery<T>, update: UpdateQuery<T>): Query<UpdateQueryResult, T> {
+        return null as any // Implementação do método
+    }
 }
 
-MUser()
+type PropGeneric<T> = { [prop: string]: T }
+
+export function memoryDB() {
+    const models: PropGeneric<Partial<IModel<any>>> = {}
+
+    const model = function <T>(collectionName: string, schema: SchemaDefinition<T>) {
+        const _model: Model<T> = new Model(collectionName, schema)
+
+        models[collectionName] = _model
+
+        return _model
+    }
+
+    return {
+        model,
+        models,
+    }
+}
