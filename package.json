@@ -6,9 +6,10 @@
     "scripts": {
         "start": "tsx src/index.ts",
         "dev": "tsx watch src/index.ts",
-        "database:local": "tsx watch src/app/database/local.db.ts",
+        "database:memory": "tsx watch src/app/database/local.db.ts",
         "test": "vitest",
-        "test:database:local": "vitest src/app/database/local.db.spec.ts",
+        "test:database:memory": "vitest src/app/database/local.db.spec.ts",
+        "feature:memory": "tsx watch src/app/features/memory/index.ts",
         "valid:lint": "eslint \"**/*.ts\"",
         "fix:lint": "eslint --fix ."
     },
@@ -41,7 +42,6 @@
         "body-parser": "^1.20.2",
         "cors": "^2.8.5",
         "crypto": "^1.0.1",
-        "D": "^1.0.0",
         "dotenv": "^16.0.3",
         "express": "^4.18.2",
         "mongoose": "^7.1.0",
