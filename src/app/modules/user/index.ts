@@ -4,24 +4,24 @@ import { UCRegisterUser } from './use-cases/register'
 
 const userBaseURL = 'users'
 const routersUser: TRouterPath[] = [
-  {
-    type: 'get',
-    url: '/',
-    listener: async ({ body }) => {
-      const response = await UCListUsers(body)
+    {
+        type: 'get',
+        url: '/',
+        listener: async ({ body }) => {
+            const response = await UCListUsers(body)
 
-      return response
+            return response
+        },
     },
-  },
-  {
-    type: 'post',
-    url: '/register',
-    listener: async ({ body }) => {
-      const response = await UCRegisterUser(body)
+    {
+        type: 'post',
+        url: '/register',
+        listener: async ({ body }) => {
+            const response = await UCRegisterUser(body)
 
-      return response
+            return response
+        },
     },
-  },
 ]
 
 export { routersUser, userBaseURL }

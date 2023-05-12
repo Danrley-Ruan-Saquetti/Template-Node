@@ -1,16 +1,17 @@
-import { IncomingHttpHeaders } from 'http'
+import { Request, Response, NextFunction } from 'express'
 
-type ListenerRequestHTTPData = { status: number, data: any }
+type ListenerRequestHTTPData<TData> = { status: number; data: TData }
 
-type ListenerRequestHTTP = (req: { body: any, params: ParamsDictionary, headers: IncomingHttpHeaders }) => Promise<ListenerRequestHTTPData>
+type ListenerRequestHTTP<TResponse = any> = (req: Request) => Promise<ListenerRequestHTTPData<TResponse>>
 
 type TRouterPath = {
-	type: 'get' | 'post'
-	url: string
-	listener: ListenerRequestHTTP
+    type: 'get' | 'post' | 'put' | 'delete'
+    url: string
+    middleware?: ListenerRequestHTTP
+    listener: ListenerRequestHTTP
 }
 
 interface InterfaceRouter {
-	baseURL?: string
-	paths: TRouterPath[]
+    baseURL?: string
+    paths: TRouterPath[]
 }

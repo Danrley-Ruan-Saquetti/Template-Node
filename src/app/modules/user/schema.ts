@@ -1,7 +1,7 @@
 import { z } from 'zod'
 
 const UserSchema = z.object({
-    name: z.string().nonempty({ message: '"Name" is required' }),
+    username: z.string().nonempty({ message: '"Username" is required' }),
     email: z.string().email({ message: 'Format "e-mail" invalid' }).nonempty({ message: '"E-mail" is required' }),
     age: z.number().min(0),
     password: z
@@ -12,7 +12,6 @@ const UserSchema = z.object({
         .regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#/\\|])[A-Za-z\d@$!%*?&#/\\|]+$/, {
             message: 'The password must contain at least one uppercase letter, one lowercase letter, one number, and one special character.',
         }),
-    techs: z.array(z.string()),
 })
 
 type IUser = z.infer<typeof UserSchema>

@@ -4,7 +4,7 @@ import { ErrorGeneral } from '../../../../util/error'
 
 test('UC Register - User: Correct', async () => {
     const body = {
-        name: 'Dan',
+        username: 'Dan',
         email: 'dan@gmail.com',
         password: '1234R5&aasd',
     }
@@ -17,7 +17,7 @@ test('UC Register - User: Correct', async () => {
 
 test('UC Register - User: Invalid data', async () => {
     const body1 = {
-        name: 'Dan',
+        username: 'Dan',
         email: 'dan@gmail.com',
         password: '1234R5&aasd',
     }
@@ -27,7 +27,7 @@ test('UC Register - User: Invalid data', async () => {
     expect(res1.data.error).toEqual(undefined)
 
     const body2 = {
-        name: 'Dan',
+        username: 'Dan',
         email: 'dangmail.com',
         password: '1asd',
     }

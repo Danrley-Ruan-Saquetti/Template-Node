@@ -1,13 +1,16 @@
+import { db } from '../../../../database'
 import { ErrorGeneral } from '../../../../util/error'
-import { UserModel } from '../../model'
 import { IUser } from '../../schema'
 
-export async function MListUsers({ email, name, age, password, techs }: Partial<IUser>) {
-    const response: { users?: IUser[]; error?: ErrorGeneral } = await UserModel.find({ email, name, age, password, techs })
+export type MListUsersData = { users?: IUser[]; error?: ErrorGeneral }
+
+export async function MListUsers({ email, username, age, password }: Partial<IUser>) {
+    const response: MListUsersData = await db.user
+        .find({ where: { email, username, age, password } })
         .then((res: IUser[]) => {
             return { users: res }
         })
-        .catch(err => {
+        .catch((err: any) => {
             return {
                 error: new ErrorGeneral({ title: 'List Users', message: [{ message: 'Cannot list users', origin: 'users' }], status: 400 }),
             }
