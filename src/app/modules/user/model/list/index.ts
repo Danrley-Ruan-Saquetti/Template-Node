@@ -2,8 +2,8 @@ import { ErrorGeneral } from '../../../../util/error'
 import { UserModel } from '../../model'
 import { IUser } from '../../schema'
 
-export async function MListUsers({ email, name }: Partial<IUser>) {
-    const response: { users?: IUser[]; error?: ErrorGeneral } = await UserModel.find({ email, name })
+export async function MListUsers({ email, name, age, password, techs }: Partial<IUser>) {
+    const response: { users?: IUser[]; error?: ErrorGeneral } = await UserModel.find({ email, name, age, password, techs })
         .then((res: IUser[]) => {
             return { users: res }
         })

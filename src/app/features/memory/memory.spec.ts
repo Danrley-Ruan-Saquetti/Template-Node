@@ -1,7 +1,7 @@
 import { expect, test } from 'vitest'
-import { memoryDB, DocumentDefination, ISchema, IModel } from '.'
+import { memoryDB, DocumentDefinition, ISchema, IModel } from '.'
 
-interface IUser extends DocumentDefination {
+interface IUser extends DocumentDefinition {
     name: string
     email: string
     password: string
@@ -15,10 +15,13 @@ const userSchema: ISchema<IUser> = {
     password: String,
     age: Number,
     techs: Array<String>(),
-    createAt: Date,
+    createAt: {
+        type: Date,
+        default: new Date(Date.now())
+    },
 }
 
-const users: DocumentDefination<IUser>[] = [
+const users: DocumentDefinition<IUser>[] = [
     { name: 'Dan', email: 'dan@gmail.com', age: 19, password: '123', techs: ['Typescript', 'PHP', 'Java', 'Javascript', 'Node', 'BD'] },
     { name: 'Davi', email: 'davi@gmail.com', age: 18, password: '123', techs: ['PHP', 'Java'] },
     { name: 'Ruan', email: 'ruan@gmail.com', age: 19, password: '123', techs: ['Java', 'BD'] },
@@ -27,7 +30,7 @@ const users: DocumentDefination<IUser>[] = [
 ]
 
 async function registerValues(model: IModel<IUser>, length = users.length) {
-    const docs: DocumentDefination<IUser> = []
+    const docs: DocumentDefinition<IUser> = []
 
     for (let i = 0; i < length; i++) {
         const doc = await model.create(users[i])
@@ -50,7 +53,7 @@ test('Memory: Register doc', async () => {
 
     const userModel = db.model('User', userSchema)
 
-    const doc = registerValues(userModel, 1)
+    const doc = await registerValues(userModel, 1)
 
     expect(doc).not.equal(undefined)
 })
@@ -65,8 +68,8 @@ test('Memory: Filter doc', async () => {
     const filter1 = await userModel.findOne({ name: 'Dan', email: 'dan@gmail.com', age: 19 })
     const filter2 = await userModel.findOne({ name: 'Dan', email: 'danrley@gmail.com', age: 20 })
 
-    console.log(filter1)
-    console.log(filter2)
+    expect(filter1?.name).toEqual('Dan')
+    expect(filter2).toEqual(null)
 })
 
 test('Memory: Filter array', async () => {
@@ -76,7 +79,7 @@ test('Memory: Filter array', async () => {
 
     await registerValues(userModel)
 
-    const filter1 = await userModel.findOne({ techs: {} })
+    const filter1 = await userModel.findOne({ techs: 'Typescript' })
 
     console.log(filter1)
 })

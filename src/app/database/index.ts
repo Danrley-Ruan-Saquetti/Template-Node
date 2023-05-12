@@ -1,7 +1,6 @@
 import mongoose from 'mongoose'
 import dotenv from 'dotenv'
-import { newLocalDB } from './local.db'
-import { Observer, useObserver } from '../util/observer'
+import { newConnectionLocalDatabase } from '../features/memory'
 dotenv.config()
 
 mongoose.Promise = global.Promise
@@ -11,43 +10,47 @@ const DB_HOST = process.env.DB_HOST || ''
 const DB_PORT = process.env.DB_PORT || ''
 const DB_SCHEMA = process.env.DB_SCHEMA || ''
 
+const environment = process.env.ENVINROMENT || ''
+
+const DB_URL = `${DB_DRIVER}://${DB_HOST}:${DB_PORT}/${DB_SCHEMA}`
+
 type ID = mongoose.Schema.Types.ObjectId | null | string
 
-const observer = useObserver()
-// @ts-expect-error
-let db: typeof mongoose = newLocalDB()
-
-function onError() {
-    console.log('[Database] Database local started')
-    // @ts-expect-error
-    db = newLocalDB()
-}
-
-function subscribeObs(obs: Observer) {
-    observer.subscribeObserver(obs)
-}
-
-function newConnection() {
+async function connectDB() {
     try {
-        // mongoose
-        //     .connect(`${DB_DRIVER}://${DB_HOST}:${DB_PORT}/${DB_SCHEMA}`)
-        //     .then(res => {
-        //         db = mongoose
-        //         observer.notifyObs({ code: '$database/connection/success' })
-        //         console.log('[Database] Database started')
-        //     })
-        //     .catch(err => {
-        //         observer.notifyObs({ code: '$database/connection/failed' })
-        //         console.log('[Database] Database failed connection')
-        //         onError()
-        //     })
-        onError()
+        await mongoose
+            .connect(DB_URL)
+            .then(res => {
+                console.log('[Database] Database started')
+            })
+            .catch(async (err) => {
+                console.log('[Database] Database failed connection')
+            })
+        return mongoose
     } catch (err) {
         console.log('[Database] Database failed connection')
-        onError()
+        return mongoose
     }
 }
 
-newConnection()
+async function connectLocalDB() {
+    const connect = await newConnectionLocalDatabase()
 
-export { db, ID, subscribeObs }
+    return connect
+}
+
+// function newConnection() {
+//         // if (environment == 'DEVELOPMENT') {
+//         //     const conn = await connectLocalDB()
+
+//         //     return conn
+//         // }
+
+//         const conn = await connectDB()
+
+//         return conn
+// }
+
+const db: typeof mongoose = mongoose
+
+export { db, ID }

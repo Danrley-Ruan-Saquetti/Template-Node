@@ -1,5 +1,5 @@
 import { IUser } from '../schema'
-import { db, subscribeObs } from '../../../database'
+import { db } from '../../../database'
 import mongoose from 'mongoose'
 
 export interface TDBUser extends mongoose.Document, IUser {
@@ -16,25 +16,14 @@ const UserSchema = new mongoose.Schema<TDBUser>({
         require: true,
     },
     techs: {
-        type: String[]
+        type: Array(String)
+    },
+    age: {
+        type: Number
     },
     createAt: {
         type: Date,
         default: new Date(Date.now()),
     },
 })
-
-export let UserModel = db.model('User', UserSchema)
-
-subscribeObs({
-    code: '$database/connection/failed',
-    obsFunction: () => {
-        UserModel = db.model('User', UserSchema)
-    },
-})
-subscribeObs({
-    code: '$database/connection/success',
-    obsFunction: () => {
-        UserModel = db.model('User', UserSchema)
-    },
-})
+export const UserModel = db.model('User', UserSchema)

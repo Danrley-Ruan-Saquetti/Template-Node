@@ -6,6 +6,7 @@
     "scripts": {
         "start": "tsx src/index.ts",
         "dev": "tsx watch src/index.ts",
+        "build": "npx tsup src",
         "database:memory": "tsx watch src/app/database/local.db.ts",
         "test": "vitest",
         "test:database:memory": "vitest src/app/features/memory/memory.spec.ts",
