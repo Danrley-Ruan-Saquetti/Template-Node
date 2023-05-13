@@ -1,4 +1,3 @@
-import { MListUsers } from '@module/user/model/list'
 import { UCListUsers } from '@module/user/use-cases/list'
 import { UCRegisterUser } from '@module/user/use-cases/register'
 import { TRouterPath } from '@@types/router'

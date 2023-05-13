@@ -1,6 +1,6 @@
-import { db } from '../../../../database'
-import { ErrorGeneral } from '../../../../util/error'
-import { IUser } from '../../schema'
+import { db } from '@database'
+import { IUser } from '@module/user/schema'
+import { ErrorGeneral } from '@util/error'
 
 export type MRegisterUserData = { user?: IUser; error?: ErrorGeneral }
 

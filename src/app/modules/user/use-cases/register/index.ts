@@ -1,7 +1,7 @@
-import { IUCFunction } from '../../../uc'
-import { MRegisterUser, MRegisterUserData } from '../../model/register'
-import { IUser } from '../../schema'
-import { _formatterUser } from '../../util/formatter'
+import { IUCFunction } from '@@types/use-case'
+import { MRegisterUser, MRegisterUserData } from '@module/user/model/register'
+import { IUser } from '@module/user/schema'
+import { _formatterUser } from '@module/user/util/formatter'
 
 export const UCRegisterUser: IUCFunction<MRegisterUserData> = async ({ email, username, password, age }: IUser) => {
     const userBody = { email, username, password, age }
