@@ -6,9 +6,9 @@ type FormatterResult = { data?: IUser; error?: ErrorGeneral }
 
 export function _formatterUser(prop: IUser): FormatterResult {
     try {
-        const dataFormated = UserSchema.parse(prop)
+        const dataFormatted = UserSchema.parse(prop)
 
-        return { data: dataFormated }
+        return { data: dataFormatted }
     } catch (error: any) {
         if (error instanceof z.ZodError) {
             const dataErrors = error.errors.map(_err => {

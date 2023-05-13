@@ -10,7 +10,7 @@ export async function MRegisterUser({ email, username, age, password }: IUser) {
         .then((res: IUser) => {
             return { user: res }
         })
-        .catch((err: any) => {
+        .catch((err) => {
             return { error: new ErrorGeneral({ title: 'Register User', message: [{ message: 'Cannot register user', origin: 'users' }], status: 400 }) }
         })
 
