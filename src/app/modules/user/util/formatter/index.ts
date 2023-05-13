@@ -1,6 +1,6 @@
+import { IUser, UserSchema } from '@module/user/schema'
+import { ErrorGeneral } from '@util/error'
 import { z } from 'zod'
-import { ErrorGeneral } from '../../../../util/error'
-import { IUser, UserSchema } from '../../schema'
 
 type FormatterResult = { data?: IUser; error?: ErrorGeneral }
 

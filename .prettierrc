@@ -14,5 +14,7 @@
     "semi": false,
     "singleAttributePerLine": false,
     "useTabs": false,
-    "functionParenNewline": "never "
+    "functionParenNewline": "never",
+    "arrayInlineSingleLine": true,
+    "objectLiteralInlineSingleLine": true
 }
