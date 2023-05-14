@@ -1,5 +1,5 @@
-import { UCListUsers } from '@module/user/use-cases/list'
-import { UCRegisterUser } from '@module/user/use-cases/register'
+import { UCListUsers } from '@module/user/use-case/list'
+import { UCRegisterUser } from '@module/user/use-case/register'
 import { TRouterPath } from '@@types/router'
 
 const userBaseURL = 'users'
