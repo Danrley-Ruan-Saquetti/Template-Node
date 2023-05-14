@@ -1,3 +1,3 @@
 import { ListenerRequestHTTPData } from '@@types/router'
 
-type IUCFunction<TData> = (req: any) => Promise<ListenerRequestHTTPData<TData>>
+type IUCFunction<TData, TRequest extends any[] = any> = (...args: TRequest) => Promise<ListenerRequestHTTPData<TData>>

@@ -1,6 +1,7 @@
+import { ErrorGeneral } from '@util/error'
 import { Request, Response, NextFunction } from 'express'
 
-type ListenerRequestHTTPData<TData> = { status: number; data: TData }
+type ListenerRequestHTTPData<TData extends object> = { status: number; data: TData | { error?: ErrorGeneral } }
 
 type ListenerRequestHTTP<TResponse = any> = (req: Request) => Promise<ListenerRequestHTTPData<TResponse>>
 

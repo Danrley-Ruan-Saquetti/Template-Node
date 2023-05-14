@@ -1,9 +1,9 @@
 import { IUCFunction } from '@@types/use-case'
-import { TCreateUserData, UserModel } from '@module/user/model'
+import { UserModel } from '@module/user/model'
 import { IUser } from '@module/user/schema'
 import { _formatterUser } from '@module/user/util/formatter'
 
-export const UCRegisterUser: IUCFunction<TCreateUserData> = async ({ email, username, password, age }: IUser) => {
+export const UCRegisterUser: IUCFunction<{ user: IUser }> = async ({ email, username, password, age }: IUser) => {
     const userBody = { email, username, password, age }
 
     const resParse = _formatterUser(userBody)
