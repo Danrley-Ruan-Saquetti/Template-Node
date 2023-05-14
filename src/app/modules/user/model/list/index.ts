@@ -4,7 +4,7 @@ import { ErrorGeneral } from '@util/error'
 
 export type MListUsersData = { users?: IUser[]; error?: ErrorGeneral }
 
-export async function MListUsers({ email, username, age, password }: Partial<IUser>) {
+export async function MListUsers({ filters: { email, username, age, password } }: { filters: Partial<IUser> }) {
     const response: MListUsersData = await db.user
         .findMany({ where: { email, username, age, password } })
         .then((res: IUser[]) => {
