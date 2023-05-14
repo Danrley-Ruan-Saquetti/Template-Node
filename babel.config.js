@@ -14,6 +14,7 @@ module.exports = {
 		'**/*.spec.ts',
 		'public',
 		'**/*.d.ts',
-		'./scr/@types'
+		'./scr/@types',
+		'prisma'
 	]
 }
