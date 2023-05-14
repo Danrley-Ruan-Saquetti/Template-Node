@@ -1,5 +1,4 @@
-import { UCListUsers } from '@module/user/use-case/list'
-import { UCRegisterUser } from '@module/user/use-case/register'
+import { UserController } from '@module/user/use-case'
 import { TRouterPath } from '@@types/router'
 
 const userBaseURL = 'users'
@@ -8,7 +7,7 @@ const routersUser: TRouterPath[] = [
         type: 'get',
         url: '/',
         listener: async ({ body }) => {
-            const response = await UCListUsers(body)
+            const response = await UserController.list(body)
 
             return response
         },
@@ -17,7 +16,7 @@ const routersUser: TRouterPath[] = [
         type: 'post',
         url: '/register',
         listener: async ({ body }) => {
-            const response = await UCRegisterUser(body)
+            const response = await UserController.register(body)
 
             return response
         },
