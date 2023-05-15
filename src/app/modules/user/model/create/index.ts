@@ -1,10 +1,10 @@
 import { db } from '@database'
-import { IUser } from '@module/user/schema'
+import { IUser, IUserDataRequest } from '@module/user/schema'
 import { ErrorGeneral } from '@util/error'
 
 export type TCreateUserData = { user?: IUser; error?: ErrorGeneral }
 
-export async function MCreateUser({ email, username, age, password }: IUser) {
+export async function MCreateUser({ email, username, age, password }: IUserDataRequest) {
     const response: TCreateUserData = await db.user
         .create({ data: { email, username, age, password } })
         .then((res: IUser) => {

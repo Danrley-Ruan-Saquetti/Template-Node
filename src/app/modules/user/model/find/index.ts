@@ -4,8 +4,8 @@ import { ErrorGeneral } from '@util/error'
 
 export type TFindUsersData = ResultMethodData<{ users?: IUser[] }>
 
-export async function MFindUsers({ filters }: { filters: Omit<Partial<IUser>, 'password'> }) {
-    const response: TFindUsersData = await db.user.findMany({ where: filters }).then((res: IUser[]) => {
+export async function MFindUsers({ filters: { age, email, username, createAt, id } }: { filters: Omit<Partial<IUser>, 'password'> }) {
+    const response: TFindUsersData = await db.user.findMany({ where: { age, email, username, createAt, id } }).then((res: IUser[]) => {
         return { users: res }
     }).catch((err) => {
         return {

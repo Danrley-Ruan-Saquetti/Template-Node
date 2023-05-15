@@ -1,7 +1,7 @@
 import { PrismaClient, User as TModelUser } from '@prisma/client'
 import { ErrorGeneral } from '@util/error'
 
-type ResultMethodData<T extends {}> = T & {
+export type ResultMethodData<T extends {}> = T & {
     error?: ErrorGeneral,
 }
 
@@ -19,4 +19,4 @@ async function main() {
 
 main()
 
-export { db, TModelUser, ResultMethodData }
+export { db, TModelUser }

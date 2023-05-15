@@ -1,6 +1,6 @@
 import { expect, test } from 'vitest'
 import { ErrorGeneral } from '../../util/error'
-import { _formatterUser } from './util/formatter'
+import { _formatterUserRequestData } from './util/formatter'
 
 test('ZOD - User: Valid data', () => {
     const body = {
@@ -10,12 +10,10 @@ test('ZOD - User: Valid data', () => {
         age: 18,
     }
 
-    const res = _formatterUser(body)
+    const res = _formatterUserRequestData(body)
 
     expect(res.error).toEqual(undefined)
-    // @ts-expect-error
     expect(res.data.username).toEqual('Dan')
-    // @ts-expect-error
     expect(res.data.email).toEqual('dan@gmail.com')
 })
 
@@ -27,8 +25,7 @@ test('ZOD - User: Invalid data', () => {
         age: 18,
     }
 
-    // @ts-expect-error
-    const res = _formatterUser(body)
+    const res = _formatterUserRequestData(body)
 
     expect(res.error).instanceOf(ErrorGeneral)
 })
@@ -41,7 +38,7 @@ test('ZOD - User: Valid password', () => {
         age: 18,
     }
 
-    const res = _formatterUser(body)
+    const res = _formatterUserRequestData(body)
 
     expect(res.error).toEqual(undefined)
 })
@@ -54,7 +51,7 @@ test('ZOD - User: Invalid password', () => {
         age: 18,
     }
 
-    const res = _formatterUser(body)
+    const res = _formatterUserRequestData(body)
 
     expect(res.error).instanceOf(ErrorGeneral)
 })

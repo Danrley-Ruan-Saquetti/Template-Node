@@ -1,24 +1,32 @@
 import { IUCFunction } from '@@types/use-case'
 import { UserModel } from '@module/user/model'
-import { IUser } from '@module/user/schema'
+import { IUser, IUserDataRequest } from '@module/user/schema'
 import { _formatterUser } from '@module/user/util/formatter'
 
-export const UCRegisterUser: IUCFunction<{ user: IUser }> = async ({ email, username, password, age }: IUser) => {
-    const userBody = { email, username, password, age }
+export const UCRegisterUser: IUCFunction<{ user: IUser }> = async ({ email, username, password, age }: IUserDataRequest) => {
+    const userBody = _formatterUser.requestData({ email, username, password, age })
 
-    const resParse = _formatterUser(userBody)
-
-    if (resParse.error || !resParse.data) {
-        return { data: resParse, status: resParse.error?.status || 400 }
+    if (userBody.error || !userBody.data) {
+        return { data: userBody, status: userBody.error?.status || 400 }
     }
 
-    const responseRegister = await UserModel.create(resParse.data)
+    const databaseBody = _formatterUser.inDatabase(userBody.data)
+
+    if (databaseBody.error || !databaseBody.data) {
+        return { data: databaseBody, status: userBody.error?.status || 400 }
+    }
+
+    const responseRegister = await UserModel.create(databaseBody.data)
 
     if (responseRegister.error) {
         return { data: responseRegister, status: responseRegister.error.status }
     }
 
-    const { user } = responseRegister
+    const databaseOut = _formatterUser.outDatabase(responseRegister.user)
 
-    return { status: 200, data: { user } }
+    if (databaseOut.error || !databaseOut.data) {
+        return { data: databaseOut, status: userBody.error?.status || 400 }
+    }
+
+    return { status: 200, data: databaseOut.data }
 }

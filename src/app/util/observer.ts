@@ -1,9 +1,9 @@
-export type Observer = { obsFunction: <T>(data?: T) => void, code: string }
+import { TObserver } from '@@types/observer'
 
 export function useObserver() {
-    const observers: Observer[] = []
+    const observers: TObserver[] = []
 
-    const subscribeObserver = (obs: Observer) => {
+    const subscribeObserver = (obs: TObserver) => {
         observers.push(obs)
     }
 

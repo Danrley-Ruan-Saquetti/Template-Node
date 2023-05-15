@@ -1,12 +1,4 @@
-export type TError = {
-    status: number
-    title: string
-    message: { message: string, origin: string | number }[]
-}
-
-export type IError = {
-    error: TError
-}
+import { TError } from '@@types/error'
 
 export class ErrorGeneral implements TError {
     status: number
