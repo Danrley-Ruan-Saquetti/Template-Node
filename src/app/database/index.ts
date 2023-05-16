@@ -5,7 +5,9 @@ export type ResultMethodData<T extends {}> = T & {
     error?: ErrorGeneral,
 }
 
-const db = new PrismaClient()
+const db = new PrismaClient({
+    log: ['query', 'info', 'warn', 'error']
+})
 
 async function main() {
     try {
