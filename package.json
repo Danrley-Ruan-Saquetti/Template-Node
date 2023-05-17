@@ -18,15 +18,15 @@
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/Danrley-Ruan-Saquetti/Template-Node.git"
+        "url": "git+https://github.com/Danrley-Ruan-Saquetti/eralith-me.git"
     },
     "keywords": [],
     "author": "",
     "license": "ISC",
     "bugs": {
-        "url": "https://github.com/Danrley-Ruan-Saquetti/Template-Node/issues"
+        "url": "https://github.com/Danrley-Ruan-Saquetti/eralith-me/issues"
     },
-    "homepage": "https://github.com/Danrley-Ruan-Saquetti/Template-Node#readme",
+    "homepage": "https://github.com/Danrley-Ruan-Saquetti/eralith-me#readme",
     "devDependencies": {
         "@babel/cli": "^7.21.5",
         "@babel/core": "^7.21.8",
