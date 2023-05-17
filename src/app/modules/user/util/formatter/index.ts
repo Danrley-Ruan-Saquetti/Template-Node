@@ -20,10 +20,10 @@ async function _formatterUserRequestData(prop: IUserDataRequest): FormatterResul
                 return { message: _err.message, origin: _err.path[0] }
             })
 
-            return { error: new ErrorGeneral({ title: 'Register User', message: dataErrors, status: 400 }) }
+            return { data: { error: new ErrorGeneral({ title: 'Register User', message: dataErrors, status: 400 }) } }
         }
         return {
-            error: new ErrorGeneral({ title: 'Register User', message: error, status: 400 }),
+            data: { error: new ErrorGeneral({ title: 'Register User', message: error, status: 400 }) },
         }
     }
 }
@@ -39,10 +39,10 @@ async function _formatterUserInDatabase(prop: IUserDataRequest): FormatterResult
                 return { message: _err.message, origin: _err.path[0] }
             })
 
-            return { error: new ErrorGeneral({ title: 'Register User', message: dataErrors, status: 400 }) }
+            return { data: { error: new ErrorGeneral({ title: 'Register User', message: dataErrors, status: 400 }) } }
         }
         return {
-            error: new ErrorGeneral({ title: 'Register User', message: error, status: 400 }),
+            data: { error: new ErrorGeneral({ title: 'Register User', message: error, status: 400 }) },
         }
     }
 }
@@ -58,10 +58,10 @@ async function _formatterUserOutDatabase(prop: IUserDataRequest): FormatterResul
                 return { message: _err.message, origin: _err.path[0] }
             })
 
-            return { error: new ErrorGeneral({ title: 'Register User', message: dataErrors, status: 400 }) }
+            return { data: { error: new ErrorGeneral({ title: 'Register User', message: dataErrors, status: 400 }) } }
         }
         return {
-            error: new ErrorGeneral({ title: 'Register User', message: error, status: 400 }),
+            data: { error: new ErrorGeneral({ title: 'Register User', message: error, status: 400 }) },
         }
     }
 }
