@@ -1,19 +1,17 @@
-import { db, ResultMethodData } from '@database'
+import { db } from '@database'
 import { IUser } from '@module/user/schema'
-import { ErrorGeneral } from '@util/error'
+import { Result } from '@util/result'
 
-export type TFindUsersData = ResultMethodData<{ users?: IUser[] }>
+type TFindUsersData = { users: IUser[] }
 
 export async function MFindUsers({ filters: { age, email, username, createAt, id } }: { filters: Omit<Partial<IUser>, 'password'> }) {
-    const response: TFindUsersData = await db.user
+    const response: Result<TFindUsersData> = await db.user
         .findMany({ where: { age, email, username, createAt, id } })
         .then((res: IUser[]) => {
-            return { users: res }
+            return Result.success<TFindUsersData>({ users: res })
         })
         .catch(err => {
-            return {
-                error: new ErrorGeneral({ title: 'Find Users', message: [{ message: 'Cannot find users', origin: 'users' }], status: 400 }),
-            }
+            return Result.failure<TFindUsersData>({ title: 'Find Users', message: [{ message: 'Cannot find users', origin: 'users' }] }, 400)
         })
 
     return response

@@ -1,16 +1,17 @@
 import { TModelUser, db } from '@database'
-import { ErrorGeneral } from '@util/error'
+import { Result } from '@util/result'
 
-export type TUpdateUserData = { user?: TModelUser; error?: ErrorGeneral }
+type TUpdateUserData = { user: TModelUser }
 
 export async function MUpdateUser() {
-    const response: TUpdateUserData = await db.user.update({ where: {}, data: {} }).then(res => {
-        return { user: res }
-    }).catch((err) => {
-        return {
-            error: new ErrorGeneral({ title: 'Find Users', message: [{ message: 'Cannot find users', origin: 'users' }], status: 400 }),
-        }
-    })
+    const response: Result<TUpdateUserData> = await db.user
+        .update({ where: {}, data: {} })
+        .then(res => {
+            return Result.success<TUpdateUserData>({ user: res })
+        })
+        .catch(err => {
+            return Result.failure<TUpdateUserData>({ title: 'Find Users', message: [{ message: 'Cannot find users', origin: 'users' }] }, 400)
+        })
 
     return response
 }

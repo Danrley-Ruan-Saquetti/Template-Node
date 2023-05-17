@@ -9,16 +9,16 @@ export async function UserRouters(app: FastifyInstance) {
     })
 
     app.post('/', async ({ body }, reply) => {
-        const {filters} = body
+        const { filters } = body
 
         const response = await UserController.list(filters)
 
-        return reply.status(response.status).send(response.data)
+        return reply.status(response.status).send(response.value || response.error)
     })
 
     app.post('/register', async ({ body }, reply) => {
         const response = await UserController.register(body)
 
-        return reply.status(response.status).send(response.data)
+        return reply.status(response.status).send(response.value || response.error)
     })
 }

@@ -57,10 +57,14 @@ function DatabaseMemory() {
                 return
             }
 
-            models[name].documents[indexDoc] = {
+            const docNewData = {
                 ...doc,
                 ...docData,
             }
+
+            models[name].documents[indexDoc] = docNewData
+
+            return docNewData
         }
 
         // UC
@@ -76,11 +80,7 @@ function DatabaseMemory() {
         const update = async ({ where, data }: { where: Partial<T>; data: Partial<T> }) => {
             const doc = await findFirst({ where })
 
-            if (!doc) {
-                return
-            }
-
-            updateDoc(doc, data)
+            return updateDoc(doc, data)
         }
 
         const updateMany = async ({ where, data }: { where: Partial<T>; data: Partial<T> }) => {

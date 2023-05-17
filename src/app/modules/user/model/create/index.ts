@@ -1,17 +1,17 @@
 import { db } from '@database'
 import { IUser, IUserDataRequest } from '@module/user/schema'
-import { ErrorGeneral } from '@util/error'
+import { Result } from '@util/result'
 
-export type TCreateUserData = { user?: IUser; error?: ErrorGeneral }
+type TCreateUserData = { user: IUser }
 
 export async function MCreateUser({ email, username, age, password }: IUserDataRequest) {
-    const response: TCreateUserData = await db.user
+    const response: Result<TCreateUserData> = await db.user
         .create({ data: { email, username, age, password } })
         .then((res: IUser) => {
-            return { user: res }
+            return Result.success<TCreateUserData>({ user: res })
         })
         .catch(err => {
-            return { error: new ErrorGeneral({ title: 'Register User', message: [{ message: 'Cannot register user', origin: 'users' }], status: 400 }) }
+            return Result.failure<TCreateUserData>({ title: 'Register User', message: [{ message: 'Cannot register user', origin: 'users' }] }, 400)
         })
 
     return response

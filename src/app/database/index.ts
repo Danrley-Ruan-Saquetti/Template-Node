@@ -6,7 +6,7 @@ export type ResultMethodData<T extends {}> = T & {
     error?: ErrorGeneral
 }
 
-const db = dbMemory // new PrismaClient({ log: ['query', 'info', 'warn', 'error'] })
+const db = new PrismaClient({ log: ['query', 'info', 'warn', 'error'] }) || dbMemory
 
 async function main() {
     try {
@@ -14,7 +14,7 @@ async function main() {
             await db.$connect()
             console.log('[Database] Database connected successfully')
         } else {
-            db.model('user')
+            // db.model('user')
             console.log('[Database] Database memory connected successfully')
         }
     } catch (err: any) {

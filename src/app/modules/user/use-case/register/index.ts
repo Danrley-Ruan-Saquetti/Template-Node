@@ -5,7 +5,7 @@ import { _formatterUser } from '@module/user/util/formatter'
 export const UCRegisterUser = async ({ email, username, password, age }: IUserDataRequest) => {
     const userBody = await _formatterUser.requestData({ email, username, password, age })
 
-    if (userBody.data.error) {
+    if (userBody.isSuccess()) {
         return { data: userBody, status: userBody.data.error?.status || 400 }
     }
 
