@@ -9,9 +9,9 @@ export const _formatterUser = {
     outDatabase: _formatterUserOutDatabase,
 }
 
-function _formatterUserRequestData(prop: IUserDataRequest): FormatterResult<IUserDataRequest> {
+async function _formatterUserRequestData(prop: IUserDataRequest): FormatterResult<IUserDataRequest> {
     try {
-        const dataFormatted = UserSchema.requestData.parse(prop)
+        const dataFormatted = await UserSchema.requestData.parseAsync(prop)
 
         return { data: dataFormatted }
     } catch (error: any) {
@@ -28,9 +28,9 @@ function _formatterUserRequestData(prop: IUserDataRequest): FormatterResult<IUse
     }
 }
 
-function _formatterUserInDatabase(prop: IUserDataRequest): FormatterResult<IUserDataRequest> {
+async function _formatterUserInDatabase(prop: IUserDataRequest): FormatterResult<IUserDataRequest> {
     try {
-        const dataFormatted = UserSchema.inDataBase.parse(prop)
+        const dataFormatted = await UserSchema.inDataBase.parseAsync(prop)
 
         return { data: { ...prop, ...dataFormatted } }
     } catch (error: any) {
@@ -47,9 +47,9 @@ function _formatterUserInDatabase(prop: IUserDataRequest): FormatterResult<IUser
     }
 }
 
-function _formatterUserOutDatabase(prop: IUserDataRequest): FormatterResult<IUser> {
+async function _formatterUserOutDatabase(prop: IUserDataRequest): FormatterResult<IUser> {
     try {
-        const dataFormatted = UserSchema.outDataBase.parse(prop)
+        const dataFormatted = await UserSchema.outDataBase.parseAsync(prop)
 
         return { data: { ...prop, ...dataFormatted } }
     } catch (error: any) {

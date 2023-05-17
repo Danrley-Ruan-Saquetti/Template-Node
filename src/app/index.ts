@@ -5,9 +5,9 @@ import { UserRouters } from '@module/user'
 const app = fastify()
 
 app.register(cors, {
-    origin: true
+    origin: true,
 })
 
-app.register(UserRouters)
+app.register(UserRouters, { prefix: 'users' })
 
 export { app }

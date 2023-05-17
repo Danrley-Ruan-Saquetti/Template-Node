@@ -2,15 +2,23 @@ import { FastifyInstance } from 'fastify'
 import { UserController } from '@module/user/use-case'
 
 export async function UserRouters(app: FastifyInstance) {
-    app.get('/', async ({ body }) => {
+    app.get('/', async ({ body }, reply) => {
         const response = await UserController.list(body)
 
-        return response
+        return reply.status(response.status).send(response.data)
     })
 
-    app.post('/register', async ({ body }) => {
+    app.post('/', async ({ body }, reply) => {
+        const {filters} = body
+
+        const response = await UserController.list(filters)
+
+        return reply.status(response.status).send(response.data)
+    })
+
+    app.post('/register', async ({ body }, reply) => {
         const response = await UserController.register(body)
 
-        return response
+        return reply.status(response.status).send(response.data)
     })
 }

@@ -1,13 +1,13 @@
 import { app } from './app/index'
-import { createServer } from 'http'
 import dotenv from 'dotenv'
 dotenv.config()
 
-const server = createServer(app)
 const PORT = process.env.PORT || 8080
 
 function App() {
-  console.log(`[Server] Server running on URL: ${process.env.URL_SERVER || ''}:${PORT}`)
+    app.addresses().forEach(address => {
+        console.log(`[Server] Server running on URL: http://${address.address}:${address.port}`)
+    })
 }
 
-server.listen(PORT, App)
+app.listen({ port: Number(PORT) }, App)

@@ -13,6 +13,7 @@
         "prisma:studio": "npx prisma studio",
         "prisma:generate": "npx prisma generate",
         "prisma:setup": "npx prisma introspect",
+        "script:memory": "tsx watch src/app/database/memory.ts",
         "valid:lint": "eslint \"**/*.ts\"",
         "fix:lint": "eslint --fix ."
     },

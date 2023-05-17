@@ -1,18 +1,22 @@
 import { PrismaClient, User as TModelUser } from '@prisma/client'
 import { ErrorGeneral } from '@util/error'
+import { dbMemory } from './memory'
 
 export type ResultMethodData<T extends {}> = T & {
-    error?: ErrorGeneral,
+    error?: ErrorGeneral
 }
 
-const db = new PrismaClient({
-    log: ['query', 'info', 'warn', 'error']
-})
+const db = dbMemory // new PrismaClient({ log: ['query', 'info', 'warn', 'error'] })
 
 async function main() {
     try {
-        await db.$connect()
-        console.log('[Database] Database connected successfully')
+        if (db instanceof PrismaClient) {
+            await db.$connect()
+            console.log('[Database] Database connected successfully')
+        } else {
+            db.model('user')
+            console.log('[Database] Database memory connected successfully')
+        }
     } catch (err: any) {
         console.error('[Database] Database connection failed')
         throw new Error(err)

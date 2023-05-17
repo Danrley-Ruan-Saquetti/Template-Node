@@ -10,7 +10,7 @@ export async function MCreateUser({ email, username, age, password }: IUserDataR
         .then((res: IUser) => {
             return { user: res }
         })
-        .catch((err) => {
+        .catch(err => {
             return { error: new ErrorGeneral({ title: 'Register User', message: [{ message: 'Cannot register user', origin: 'users' }], status: 400 }) }
         })
 
