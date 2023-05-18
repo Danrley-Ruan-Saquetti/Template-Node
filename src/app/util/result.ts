@@ -35,11 +35,11 @@ export class Result<T> {
     }
 
     getResponse() {
-        return this.value
+        return this.value as T
     }
 
     getError() {
-        return this.error
+        return this.error as ErrorGeneral
     }
 
     getStatus() {

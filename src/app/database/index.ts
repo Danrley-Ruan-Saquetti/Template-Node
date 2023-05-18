@@ -6,7 +6,7 @@ export type ResultMethodData<T extends {}> = T & {
     error?: ErrorGeneral
 }
 
-const db = new PrismaClient({ log: ['query', 'info', 'warn', 'error'] }) || dbMemory
+const db = dbMemory || new PrismaClient({ log: ['query', 'info', 'warn', 'error'] }) || dbMemory
 
 async function main() {
     try {
