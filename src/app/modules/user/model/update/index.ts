@@ -1,9 +1,10 @@
-import { TModelUser, db } from '@database'
+import { db } from '@database'
+import { IUser } from '@module/user/schema'
 import { Result } from '@util/result'
 
-type TUpdateUserData = { user: TModelUser }
+type TUpdateUserData = { user: IUser }
 
-export async function MUpdateUser({ data, where }: { where: Pick<TModelUser, 'id' | 'email'>; data: Omit<Partial<TModelUser>, 'id' | 'createAt'> }) {
+export async function MUpdateUser({ data, where }: { where: Pick<IUser, 'id' | 'email'>; data: Omit<Partial<IUser>, 'id' | 'createAt'> }) {
     const newData = { age: data.age, email: data.email, password: data.password, username: data.username }
     const filter = { id: where.id, email: where.email }
 

@@ -18,16 +18,21 @@ const UserSchemaRequestData = z.object({
 
 // Data insert database
 const UserSchemaInDatabase = z.object({
+    username: z.string(),
+    email: z.string().email(),
+    age: z.number().min(0),
+    createAt: z.date().optional().default(new Date(Date.now())),
     password: z.string().transform(async pass => {
         const passHash = await generateHash(pass)
         return passHash
     }),
-    createAt: z.date().optional().default(new Date(Date.now())),
 })
 
 // Data result database
 const UserSchemaOutDatabase = SchemaDefault.extend({
-    password: z.string().optional(),
+    username: z.string(),
+    email: z.string().email(),
+    age: z.number().min(0),
 })
 
 // Data response request

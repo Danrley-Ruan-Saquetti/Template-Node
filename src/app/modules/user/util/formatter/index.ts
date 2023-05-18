@@ -2,20 +2,20 @@ import { UserSchema } from '@module/user/schema'
 import { Formatter } from '@util/formatter'
 import { z } from 'zod'
 
-export const _formatterUser = {
-    requestData: _formatterUserRequestData,
-    inDatabase: _formatterUserInDatabase,
-    outDatabase: _formatterUserOutDatabase,
+export const formatterUser = {
+    requestData: formatterUserRequestData,
+    inDatabase: formatterUserInDatabase,
+    outDatabase: formatterUserOutDatabase,
 }
 
-async function _formatterUserRequestData(prop: z.infer<(typeof UserSchema)['requestData']>) {
+async function formatterUserRequestData(prop: z.input<(typeof UserSchema)['requestData']>) {
     return await Formatter(UserSchema['requestData'], prop)
 }
 
-async function _formatterUserInDatabase(prop: z.infer<(typeof UserSchema)['inDataBase']>) {
+async function formatterUserInDatabase(prop: z.input<(typeof UserSchema)['inDataBase']>) {
     return await Formatter(UserSchema['inDataBase'], prop)
 }
 
-async function _formatterUserOutDatabase(prop: z.infer<(typeof UserSchema)['outDataBase']>) {
+async function formatterUserOutDatabase(prop: z.input<(typeof UserSchema)['outDataBase']>) {
     return await Formatter(UserSchema['outDataBase'], prop)
 }

@@ -1,15 +1,15 @@
 import { UserModel } from '@module/user/model'
 import { IUserDataRequest } from '@module/user/schema'
-import { _formatterUser } from '@module/user/util/formatter'
+import { formatterUser } from '@module/user/util/formatter'
 
 export async function UCRegisterUser({ email, username, password, age }: IUserDataRequest) {
-    const userBody = await _formatterUser.requestData({ email, username, password, age })
+    const userBody = await formatterUser.requestData({ email, username, password, age })
 
     if (!userBody.isSuccess()) {
         return { data: userBody.getResult(), status: userBody.getStatus() }
     }
 
-    const databaseBody = await _formatterUser.inDatabase(userBody.getResponse())
+    const databaseBody = await formatterUser.inDatabase(userBody.getResponse())
 
     if (!databaseBody.isSuccess()) {
         return { data: databaseBody.getResult(), status: databaseBody.getStatus() }
@@ -21,7 +21,7 @@ export async function UCRegisterUser({ email, username, password, age }: IUserDa
         return { data: responseRegister.getResult(), status: responseRegister.getStatus() }
     }
 
-    const databaseOut = await _formatterUser.outDatabase(responseRegister.getResponse().user)
+    const databaseOut = await formatterUser.outDatabase(responseRegister.getResponse().user)
 
     return { status: databaseOut.getStatus(), data: databaseOut.getResult() }
 }
