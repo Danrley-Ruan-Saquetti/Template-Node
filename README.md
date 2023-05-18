@@ -1,4 +1,4 @@
-# Eralith ME
+# Esliph ME
 
 Este é um template para projetos para desenvolvimento de API's NODE que segue a topologia de Module Entity (ME).
 
