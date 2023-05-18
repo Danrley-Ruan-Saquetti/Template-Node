@@ -1,11 +1,12 @@
 {
-    "name": "eralith-me",
+    "name": "esliph-me",
     "version": "1.0.0",
     "description": "",
     "main": "dist/index.js",
     "scripts": {
         "start": "node dist/index.js",
         "dev": "tsx watch src/index.ts",
+        "setup:dev": "npm i && npm run prisma:migrate && npm run prisma:generate",
         "babel:build": "babel src --extensions \".js,.ts\" --out-dir dist --copy-files --no-copy-ignored",
         "build": "npx tsup src",
         "test": "vitest",
@@ -19,15 +20,15 @@
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/Danrley-Ruan-Saquetti/eralith-me.git"
+        "url": "git+https://github.com/Danrley-Ruan-Saquetti/esliph-me.git"
     },
     "keywords": [],
     "author": "",
     "license": "ISC",
     "bugs": {
-        "url": "https://github.com/Danrley-Ruan-Saquetti/eralith-me/issues"
+        "url": "https://github.com/Danrley-Ruan-Saquetti/esliph-me/issues"
     },
-    "homepage": "https://github.com/Danrley-Ruan-Saquetti/eralith-me#readme",
+    "homepage": "https://github.com/Danrley-Ruan-Saquetti/esliph-me#readme",
     "devDependencies": {
         "@babel/cli": "^7.21.5",
         "@babel/core": "^7.21.8",

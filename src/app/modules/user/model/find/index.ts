@@ -54,9 +54,5 @@ const select = { username: true, age: false }
 type TFindUsersData = { users: TFindData<IUser, typeof select>[] }
 
 const a: TFindUsersData = {
-    users: [{}],
+    users: [],
 }
-
-MFindUsers({ filters: {username: ""}, select: { username: true } }).then(res => {
-    res && res.getResponse().users[0].
-})

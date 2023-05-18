@@ -5,7 +5,7 @@ const PORT = process.env.PORT || 8080
 
 function App() {
     app.addresses().forEach(address => {
-        console.log(`[Server] Server running on URL: http://${address.address}:${address.port}`)
+        console.log(`[Server:Address] address=${address.address} port=${address.port}`)
     })
 }
 
