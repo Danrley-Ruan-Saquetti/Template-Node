@@ -1,5 +1,5 @@
 import { TError } from '@@types/error'
-import { ErrorGeneral } from '@util//error'
+import { ErrorGeneral } from '@util/error'
 
 export class Result<T> {
     private ok: boolean

@@ -1,12 +1,9 @@
-import { MFindUsers, TFindUsersData } from './find'
-import { MCreateUser, TCreateUserData } from './create'
-
-export {
-    TFindUsersData,
-    TCreateUserData
-}
+import { MFindUsers } from './find'
+import { MCreateUser } from './create'
+import { MUpdateUser } from './update'
 
 export const UserModel = {
     findMany: MFindUsers,
-    create: MCreateUser
+    create: MCreateUser,
+    update: MUpdateUser,
 }

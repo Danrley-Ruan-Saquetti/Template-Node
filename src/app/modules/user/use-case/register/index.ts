@@ -2,7 +2,7 @@ import { UserModel } from '@module/user/model'
 import { IUserDataRequest } from '@module/user/schema'
 import { _formatterUser } from '@module/user/util/formatter'
 
-export const UCRegisterUser = async ({ email, username, password, age }: IUserDataRequest) => {
+export async function UCRegisterUser({ email, username, password, age }: IUserDataRequest) {
     const userBody = await _formatterUser.requestData({ email, username, password, age })
 
     if (!userBody.isSuccess()) {

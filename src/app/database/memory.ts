@@ -54,7 +54,7 @@ function DatabaseMemory() {
             const indexDoc = findIndex(doc)
 
             if (indexDoc < 0) {
-                return
+                return doc
             }
 
             const docNewData = {

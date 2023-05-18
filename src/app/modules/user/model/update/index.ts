@@ -3,9 +3,12 @@ import { Result } from '@util/result'
 
 type TUpdateUserData = { user: TModelUser }
 
-export async function MUpdateUser() {
+export async function MUpdateUser({ data, where }: { where: Pick<TModelUser, 'id' | 'email'>; data: Omit<Partial<TModelUser>, 'id' | 'createAt'> }) {
+    const newData = { age: data.age, email: data.email, password: data.password, username: data.username }
+    const filter = { id: where.id, email: where.email }
+
     const response: Result<TUpdateUserData> = await db.user
-        .update({ where: {}, data: {} })
+        .update({ where: filter, data: newData })
         .then(res => {
             return Result.success<TUpdateUserData>({ user: res })
         })
