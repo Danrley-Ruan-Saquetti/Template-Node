@@ -1,12 +1,19 @@
 import { PrismaClient, User as TModelUser } from '@prisma/client'
+import { z } from 'zod'
 import { ErrorGeneral } from '@util/error'
 import { dbMemory } from './memory'
 
+type ISchemaDefault = z.infer<typeof SchemaDefault>
 export type ResultMethodData<T extends {}> = T & {
     error?: ErrorGeneral
 }
 
-const db = dbMemory || new PrismaClient({ log: ['query', 'info', 'warn', 'error'] }) || dbMemory
+const db = new PrismaClient({ log: ['query', 'info', 'warn', 'error'] }) || dbMemory
+
+const SchemaDefault = z.object({
+    id: z.number(),
+    createAt: z.optional(z.date()).default(new Date(Date.now())),
+})
 
 async function main() {
     try {
@@ -25,4 +32,4 @@ async function main() {
 
 main()
 
-export { db, TModelUser }
+export { db, TModelUser, ISchemaDefault, SchemaDefault }

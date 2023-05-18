@@ -10,6 +10,7 @@ type TDocument = {
     id: number
     createAt: Date
 }
+type SelectType<T> = { [K in keyof Partial<T>]: boolean }
 
 function DatabaseMemory() {
     const models: PropGeneric<TModel> = {}
@@ -32,6 +33,43 @@ function DatabaseMemory() {
             }
 
             return true
+        }
+
+        const selectPropsInDoc = (doc: T, props?: SelectType<Partial<T>>) => {
+            if (!props || Object.keys(props).length == 0) {
+                return doc as Partial<T>
+            }
+
+            if (
+                Object.keys(props).some(prop => {
+                    // @ts-expect-error
+                    return props[prop]
+                })
+            ) {
+                const docFiltried: PropGeneric<any> = {}
+
+                for (const prop in props) {
+                    if (!doc[prop] || !props[prop]) {
+                        continue
+                    }
+
+                    docFiltried[prop] = doc[prop]
+                }
+
+                return docFiltried as Partial<T>
+            }
+
+            const docFiltried: PropGeneric<any> = {}
+
+            for (const prop in doc) {
+                if (typeof props[prop] != 'undefined') {
+                    continue
+                }
+
+                docFiltried[prop] = doc[prop]
+            }
+
+            return docFiltried
         }
 
         const findIndex = (doc: T) => {
@@ -78,33 +116,40 @@ function DatabaseMemory() {
         }
 
         const update = async ({ where, data }: { where: Partial<T>; data: Partial<T> }) => {
-            const doc = await findFirst({ where })
+            const doc = (await findFirst({ where })) as T
 
             return updateDoc(doc, data)
         }
 
         const updateMany = async ({ where, data }: { where: Partial<T>; data: Partial<T> }) => {
-            const docs = await findMany({ where })
+            const docs = (await findMany({ where })) as T[]
 
             docs.forEach(_doc => {
                 updateDoc(_doc, data)
             })
         }
 
-        const findFirst = async ({ where }: { where: Partial<T> }) => {
+        const findFirst = async ({ where, select }: { where: Partial<T>; select?: SelectType<Partial<T>> }) => {
             return (
-                models[name].documents.find(_doc => {
-                    return selectDoc(_doc, where)
-                }) || null
+                (selectPropsInDoc(
+                    models[name].documents.find(_doc => {
+                        return selectDoc(_doc, where)
+                    }),
+                    select
+                ) as T) || null
             )
         }
 
-        const findMany = async ({ where }: { where: Partial<T> }) => {
-            const docs = models[name].documents.filter(_doc => {
-                return selectDoc(_doc, where)
-            })
+        const findMany = async ({ where, select }: { where: Partial<T>; select?: SelectType<Partial<T>> }) => {
+            const docs = models[name].documents
+                .filter(_doc => {
+                    return selectDoc(_doc, where)
+                })
+                .map(doc => {
+                    return selectPropsInDoc(doc, select)
+                })
 
-            return docs
+            return docs as T[]
         }
 
         const findAll = async () => {
@@ -122,7 +167,7 @@ function DatabaseMemory() {
         }
 
         const deleteMany = async ({ where }: { where: Partial<T> }) => {
-            const docs = await findMany({ where })
+            const docs = (await findMany({ where })) as T[]
 
             docs.forEach(_doc => {
                 deleteDoc(_doc)
@@ -181,9 +226,15 @@ async function UserModelMain() {
     const users = await dbMemory.user.findMany({
         where: {
             'age': 18,
-            'username': 'Dan',
+        },
+        select: {
+            username: false,
+            password: false,
+            age: false,
         },
     })
+
+    console.log(users)
 }
 
 // UserModelMain()

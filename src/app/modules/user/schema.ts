@@ -1,7 +1,6 @@
 import { z } from 'zod'
 import { generateHash } from '@util/hash'
-import { SchemaDefault } from '@module/default/schema'
-import { TModelUser } from '@database'
+import { SchemaDefault, TModelUser } from '@database'
 
 // Data request form
 const UserSchemaRequestData = z.object({
