@@ -7,7 +7,8 @@ module.exports = {
 			'@util': './src/app/util',
 			'@module': './src/app/modules',
 			'@service': './src/app/services',
-			'@@types': './src/@types/*'
+			'@@types': './src/@types/*',
+			'@public': './public/*'
 		}
 	}]],
 	ignore: [
