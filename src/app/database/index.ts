@@ -9,7 +9,7 @@ export type ResultMethodData<T extends {}> = T & {
     error?: ErrorGeneral
 }
 
-const db = new PrismaClient({ log: getEnv({ name: 'ENVIRONMENT', default: 'DEVELOPMENT' }) != 'DEVELOPMENT' ? [] : ['query', 'info', 'warn', 'error'] }) || dbMemory
+const db = dbMemory // new PrismaClient({ log: getEnv({ name: 'ENVIRONMENT', default: 'DEVELOPMENT' }) != 'DEVELOPMENT' ? [] : ['query', 'info', 'warn', 'error'] }) || dbMemory
 
 const SchemaDefault = z.object({
     id: z.number(),

@@ -5,7 +5,7 @@ const PORT = getEnv({ name: 'PORT', default: 8080 })
 
 function App() {
     app.addresses().forEach(address => {
-        console.log(`[Server:Address] address=${address.address} port=${address.port}`)
+        console.log(`[Server::Address] address=${address.address} port=${address.port}`)
     })
 }
 
