@@ -2,13 +2,14 @@ import { PrismaClient, User as TModelUser } from '@prisma/client'
 import { z } from 'zod'
 import { ErrorGeneral } from '@util/error'
 import { dbMemory } from './memory'
+import { getEnv } from '@util/var-env'
 
 type ISchemaDefault = z.infer<typeof SchemaDefault>
 export type ResultMethodData<T extends {}> = T & {
     error?: ErrorGeneral
 }
 
-const db = new PrismaClient({ log: ['query', 'info', 'warn', 'error'] }) || dbMemory
+const db = new PrismaClient({ log: getEnv({ name: 'ENVIRONMENT', default: 'DEVELOPMENT' }) != 'DEVELOPMENT' ? [] : ['query', 'info', 'warn', 'error'] }) || dbMemory
 
 const SchemaDefault = z.object({
     id: z.number(),

@@ -1,7 +1,7 @@
-import 'dotenv/config'
 import { app } from './app/index'
+import { getEnv } from '@util/var-env'
 
-const PORT = process.env.PORT || 8080
+const PORT = getEnv({ name: 'PORT', default: 8080 })
 
 function App() {
     app.addresses().forEach(address => {
