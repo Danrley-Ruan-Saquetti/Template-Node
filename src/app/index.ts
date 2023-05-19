@@ -14,15 +14,16 @@ const ROUTERS = [
 ]
 
 function setup() {
-    app.register(routerStatic, {
-        root: resolve(__dirname, '../../public')
-    })
     app.register(multipart)
     app.register(cors, {
         origin: true,
     })
     app.register(jwt, {
         secret: 'eralith-me',
+    })
+    app.register(routerStatic, {
+        root: resolve(__dirname, '../../public'),
+        prefix: '/public'
     })
 
     ROUTERS.forEach(router => app.register(router.routers, { prefix: router.prefix }))
