@@ -1,6 +1,7 @@
 import fastify, { FastifyInstance } from 'fastify'
 import cors from '@fastify/cors'
 import jwt from '@fastify/jwt'
+import multipart from '@fastify/multipart'
 import { UserRouters } from '@module/user'
 
 const app = fastify()
@@ -11,6 +12,7 @@ const ROUTERS = [
 ]
 
 function setup() {
+    app.register(multipart)
     app.register(cors, {
         origin: true,
     })
