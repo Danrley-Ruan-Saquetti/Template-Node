@@ -7,7 +7,7 @@
         "start": "node dist/index.js",
         "dev": "tsx watch src/index.ts",
         "setup:dev": "npm i && npm run prisma:migrate && npm run prisma:generate",
-        "build:babel": "babel src --extensions \".js,.ts\" --out-dir dist --copy-files --no-copy-ignored",
+        "babel:build": "babel src --extensions \".js,.ts\" --out-dir dist --copy-files --no-copy-ignored",
         "build": "npx tsup src",
         "test": "vitest",
         "prisma:migrate": "npx prisma migrate dev",

@@ -1,4 +1,4 @@
-import { UserModel } from '@module/user/repository'
+import { UserModel } from '@module/user/model'
 import { IUser } from '@module/user/schema'
 
 export async function UCListUsers({ age, email, username, createAt, id }: Omit<Partial<IUser>, 'password'>) {

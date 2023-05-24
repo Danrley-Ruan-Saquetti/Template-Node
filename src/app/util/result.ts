@@ -1,7 +1,7 @@
 import { TError } from '@@types/error'
 import { ErrorGeneral } from '@util/error'
 
-export class Result<T> {
+export class Result<T = any> {
     private ok: boolean
     private status: number
     private value?: T

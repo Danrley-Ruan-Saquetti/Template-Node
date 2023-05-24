@@ -1,22 +1,26 @@
 import { PrismaClient, User as TModelUser } from '@prisma/client'
+import { z } from 'zod'
+import { ErrorGeneral } from '@util/error'
 import { dbMemory } from './memory'
 import { getEnv } from '@util/var-env'
 
-const db = new PrismaClient({ log: getEnv({ name: 'ENVIRONMENT', default: 'DEVELOPMENT' }) != 'DEVELOPMENT' ? [] : [{ level: 'query', emit: 'event' }, 'info', 'warn', 'error'] }) || dbMemory
+type ISchemaDefault = z.infer<typeof SchemaDefault>
+export type ResultMethodData<T extends {}> = T & {
+    error?: ErrorGeneral
+}
+
+const db = dbMemory // new PrismaClient({ log: getEnv({ name: 'ENVIRONMENT', default: 'DEVELOPMENT' }) != 'DEVELOPMENT' ? [] : ['query', 'info', 'warn', 'error'] }) || dbMemory
+
+const SchemaDefault = z.object({
+    id: z.number(),
+    createAt: z.optional(z.date()).default(new Date(Date.now())),
+})
 
 async function main() {
     try {
         if (db instanceof PrismaClient) {
             await db.$connect()
             console.log('[Database] Database connected successfully')
-
-            if (getEnv({ name: 'ENVIRONMENT', default: 'DEVELOPMENT' }) == 'DEVELOPMENT') {
-                db.$on('query', (e) => {
-                    console.log(`Query: ${e.query}`)
-                    console.log(`Params: ${e.params}`)
-                    console.log(`Duration: ${e.duration}ms`)
-                })
-            }
         } else {
             // db.model('user')
             console.log('[Database] Database memory connected successfully')
@@ -29,4 +33,4 @@ async function main() {
 
 main()
 
-export { db, TModelUser }
+export { db, TModelUser, ISchemaDefault, SchemaDefault }

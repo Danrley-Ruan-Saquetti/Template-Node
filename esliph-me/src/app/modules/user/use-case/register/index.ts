@@ -1,4 +1,4 @@
-import { UserModel } from '@module/user/repository'
+import { UserModel } from '@module/user/model'
 import { IUserDataRequest } from '@module/user/schema'
 import { formatterUser } from '@module/user/util/formatter'
 

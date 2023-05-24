@@ -1,4 +1,4 @@
-import { UserModel } from '@module/user/model'
+import { UserModel } from '@module/user/repository'
 import { IUser } from '@module/user/schema'
 
 export async function UCUpdateUser({

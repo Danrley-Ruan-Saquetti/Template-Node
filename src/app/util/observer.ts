@@ -1,18 +1,18 @@
 import { TObserver } from '@@types/observer'
 
 export function useObserver() {
-    const observers: TObserver<any>[] = []
+    const observers: TObserver[] = []
 
-    function subscribeObserver<T>(obs: TObserver<T>) {
+    const subscribeObserver = (obs: TObserver) => {
         observers.push(obs)
     }
 
-    function notifyObs<T>({ code, data }: { data?: T; code: string }) {
-        observers
-            .filter(obs => {
-                return obs.code == code
-            })
-            .forEach(obs => setTimeout(() => obs.obsFunction({ data }), 1))
+    const notifyObs = <T>({ code, data }: { data?: T, code: string }) => {
+        observers.filter(obs => { return obs.code == code }).forEach(obs => {
+            setTimeout(() => {
+                obs.obsFunction({ data })
+            }, 1)
+        })
     }
 
     return {
