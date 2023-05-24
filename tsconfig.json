@@ -46,9 +46,6 @@
     "exclude": [
         "./public",
         "./dist",
-        "./src/@types",
-        "./**/*.spec.ts",
-        "./**/*.d.ts",
         "prisma"
     ]
 }
