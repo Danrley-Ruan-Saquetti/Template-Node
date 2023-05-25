@@ -1,4 +1,4 @@
-import { db } from '@database'
+import { database } from '@database'
 import { IUser } from '@module/user/schema'
 import { Result } from '@util/result'
 
@@ -8,7 +8,7 @@ export async function RepoUpdateUser({ data, where }: { where: Pick<IUser, 'id' 
     const newData = { age: data.age, email: data.email, password: data.password, username: data.username }
     const filter = { id: where.id, email: where.email }
 
-    const response: Result<TUpdateUserData> = await db.user
+    const response: Result<TUpdateUserData> = await database.user
         .update({ where: filter, data: newData })
         .then(res => {
             return Result.success<TUpdateUserData>({ user: res })
