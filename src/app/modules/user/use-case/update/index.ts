@@ -3,12 +3,12 @@ import { IUser } from '@module/user/schema'
 
 export async function UCUpdateUser({
     data: { age, email, username },
-    where: { email: uniqueQmail, id: uniqueId },
+    where: { id: uniqueId },
 }: {
-    where: Pick<IUser, 'id' | 'email'>
+    where: Pick<IUser, 'id'>
     data: Omit<Partial<IUser>, 'id' | 'createAt' | 'password'>
 }) {
-    const responseModel = await UserModel.update({ where: { email: uniqueQmail, id: uniqueId }, data: { age, email, username } })
+    const responseModel = await UserModel.update({ where: { id: uniqueId }, data: { age, email, username } })
 
-    return responseModel.getResult()
+    return responseModel
 }

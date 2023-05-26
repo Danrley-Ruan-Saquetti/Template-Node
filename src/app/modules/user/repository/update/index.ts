@@ -1,21 +1,14 @@
-import { database } from '@database'
+import { RepoUser } from '@module/user/repository/repo'
 import { IUser } from '@module/user/schema'
-import { Result } from '@util/result'
 
-type TUpdateUserData = { user: IUser }
+export async function RepoUpdateUser({ data, where }: { where: Pick<IUser, 'id'>; data: Omit<Partial<IUser>, 'id' | 'createAt' | 'password'> }) {
+    const response = await RepoUser.update({ where: { id: where.id }, data: { age: data.age, email: data.email, username: data.username } })
 
-export async function RepoUpdateUser({ data, where }: { where: Pick<IUser, 'id' | 'email'>; data: Omit<Partial<IUser>, 'id' | 'createAt'> }) {
-    const newData = { age: data.age, email: data.email, password: data.password, username: data.username }
-    const filter = { id: where.id, email: where.email }
+    return response
+}
 
-    const response: Result<TUpdateUserData> = await database.user
-        .update({ where: filter, data: newData })
-        .then(res => {
-            return Result.success<TUpdateUserData>({ user: res })
-        })
-        .catch(err => {
-            return Result.failure<TUpdateUserData>({ title: 'Find Users', message: [{ message: 'Cannot find users', origin: 'users' }] }, 400)
-        })
+export async function RepoUpdatePasswordUser({ data, where }: { where: Pick<IUser, 'id'>; data: Pick<IUser, 'password'> }) {
+    const response = await RepoUser.update({ where: { id: where.id }, data: { password: data.password } })
 
     return response
 }

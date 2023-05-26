@@ -15,13 +15,13 @@ export async function UCRegisterUser({ email, username, password, age }: IUserDa
         return { data: databaseBody.getResult(), status: databaseBody.getStatus() }
     }
 
-    const responseRegister = await UserModel.create(databaseBody.getResponse())
+    const responseRegister = await UserModel.create({ data: databaseBody.getResponse() })
 
-    if (!responseRegister.isSuccess()) {
-        return { data: responseRegister.getResult(), status: responseRegister.getStatus() }
+    if (!responseRegister.ok) {
+        return { data: responseRegister, status: responseRegister.status }
     }
 
-    const databaseOut = await formatterUser.outDatabase(responseRegister.getResponse().user)
+    const databaseOut = await formatterUser.outDatabase(responseRegister.value.user)
 
     return { status: databaseOut.getStatus(), data: databaseOut.getResult() }
 }

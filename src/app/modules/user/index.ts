@@ -5,9 +5,7 @@ import { Result } from '@util/result'
 export async function UserRouters(app: FastifyInstance) {
     app.get('/', async ({ body }, reply) => {
         try {
-            const { filters } = body
-
-            const response = await UserController.list(filters)
+            const response = await UserController.list()
 
             return reply.status(response.status).send(response)
         } catch (err) {
@@ -56,6 +54,21 @@ export async function UserRouters(app: FastifyInstance) {
             return reply
                 .status(500)
                 .send(Result.failure({ title: 'Server Error', message: [{ message: 'Error Server process', origin: 'Register "User"' }] }, 500))
+        }
+    })
+
+    app.delete('/delete/:id', async ({ body, params }, reply) => {
+        try {
+            const { id } = params
+
+            const response = await UserController.delete({ id: Number(id) })
+
+            return reply.status(response.status).send(response)
+        } catch (err) {
+            console.error(err)
+            return reply
+                .status(500)
+                .send(Result.failure({ title: 'Server Error', message: [{ message: 'Error Server process', origin: 'Delete "User"' }] }, 500))
         }
     })
 }
