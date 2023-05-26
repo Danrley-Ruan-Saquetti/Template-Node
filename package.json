@@ -5,8 +5,10 @@
     "main": "dist/index.js",
     "scripts": {
         "start": "node dist/index.js",
-        "dev": "tsx watch src/index.ts",
-        "setup:dev": "npm i && npm run prisma:migrate && npm run prisma:generate",
+        "start:dev": "tsx watch src/index.ts",
+        "setup:production": "npm i && npm run setup:prisma && npm run build:babel && npm run start",
+        "setup:dev": "npm i && npm run setup:prisma && npm run start:dev",
+        "setup:prisma": "npm run prisma:migrate && npm run prisma:generate",
         "build:babel": "babel src --extensions \".js,.ts\" --out-dir dist --copy-files --no-copy-ignored",
         "build": "npx tsup src",
         "test": "vitest",
