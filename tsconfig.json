@@ -1,16 +1,11 @@
 {
     "compilerOptions": {
         "target": "ES6",
-        "lib": [
-            "ES6"
-        ],
+        "lib": ["ES6"],
         "module": "CommonJS",
         "rootDir": "./src",
         "moduleResolution": "node",
-        "types": [
-            "node",
-            "@prisma/client"
-        ],
+        "types": ["node", "@prisma/client"],
         "removeComments": true,
         "sourceMap": true,
         "outDir": "./dist",
@@ -23,29 +18,13 @@
         "emitDecoratorMetadata": true,
         "baseUrl": ".",
         "paths": {
-            "@database": [
-                "./src/app/database"
-            ],
-            "@util/*": [
-                "./src/app/util/*"
-            ],
-            "@module/*": [
-                "./src/app/modules/*"
-            ],
-            "@service/*": [
-                "./src/app/services/*"
-            ],
-            "@@types/*": [
-                "./src/@types/*"
-            ],
-            "@public/*": [
-                "./public/*"
-            ]
+            "@database/*": ["./src/app/database/*"],
+            "@util/*": ["./src/app/util/*"],
+            "@module/*": ["./src/app/modules/*"],
+            "@service/*": ["./src/app/services/*"],
+            "@@types/*": ["./src/@types/*"],
+            "@public/*": ["./public/*"]
         }
     },
-    "exclude": [
-        "./public",
-        "./dist",
-        "prisma"
-    ]
+    "exclude": ["./public", "./dist", "prisma"]
 }
