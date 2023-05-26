@@ -1,0 +1,178 @@
+{
+    "P1000": "Falha na autenticação no servidor de banco de dados em {database_host}, as credenciais fornecidas para o usuário {database_user} não são válidas. Certifique-se de fornecer credenciais válidas para o servidor de banco de dados em {database_host}.",
+
+    "P1001": "Não é possível acessar o servidor de banco de dados em {database_host}:{database_port}. Certifique-se de que o servidor de banco de dados esteja em execução em {database_host}:{database_port}.",
+
+    "P1002": "O servidor de banco de dados em {database_host}:{database_port} foi alcançado, mas ocorreu tempo limite. Tente novamente. Certifique-se de que o servidor de banco de dados esteja em execução em {database_host}:{database_port}.",
+
+    "P1003": "O banco de dados {database_file_name} não existe em {database_file_path}; O banco de dados {database_name}.{database_schema_name} não existe no servidor de banco de dados em {database_host}:{database_port}; O banco de dados {database_name} não existe no servidor de banco de dados em {database_host}:{database_port}.",
+
+    "P1008": "Operações expiraram após {time}.",
+
+    "P1009": "O banco de dados {database_name} já existe no servidor de banco de dados em {database_host}:{database_port}.",
+
+    "P1010": "O usuário {database_user} foi negado o acesso ao banco de dados {database_name}.",
+
+    "P1011": "Erro ao abrir uma conexão TLS: {message}",
+
+    "P1012": "Observação: Se você receber o código de erro P1012 após atualizar o Prisma para a versão 4.0.0 ou posterior, consulte o guia de atualização da versão 4.0.0. Um esquema que era válido antes da versão 4.0.0 pode ser inválido na versão 4.0.0 e posterior. O guia de atualização explica como atualizar seu esquema para torná-lo válido; '{full_error}' Mensagens de erro possíveis para P1012:\n'O argumento {} está faltando.'\n'A função {} requer {} argumentos, mas recebeu {}.'\n'O argumento {} está faltando no atributo @{}.'\n'O argumento {} está faltando no bloco de fonte de dados {}.'\n'O argumento {} está faltando no bloco de gerador {}.'\n'Erro ao analisar o atributo @{}: {}.'\n'O atributo @{} está definido duas vezes.'\n'O modelo com nome de banco de dados {} não pode ser definido porque outro modelo com esse nome já existe: {}.'\n'{} é um nome de tipo escalar reservado e não pode ser usado.'\n'O {} {} não pode ser definido porque um {} com esse nome já existe.'\n'A chave {} já está definida em {}.'\n'O argumento {} já está especificado como argumento sem nome.'\n'O argumento {} já está especificado.'\n'Argumento inexistente: {}.'\n'Argumento não suportado: {}.",
+    "P1013": "A string de banco de dados fornecida é inválida. {details}",
+
+    "P1014": "O {kind} subjacente para o modelo {model} não existe.",
+
+    "P1015": "Seu esquema Prisma está usando recursos que não são suportados para a versão do banco de dados. Versão do banco de dados: {database_version} Erros: {errors}",
+
+    "P1016": "Sua consulta bruta tem um número incorreto de parâmetros. Esperado: {expected}, atual: {actual}",
+
+    "P1017": "O servidor fechou a conexão.",
+
+    "P2000": "O valor fornecido para a coluna é muito longo para o tipo da coluna. Coluna: {column_name}",
+
+    "P2001": "O registro procurado na condição where ({model_name}.{argument_name} = {argument_value}) não existe",
+
+    "P2002": "A restrição única falhou na {constraint}",
+
+    "P2003": "A restrição de chave estrangeira falhou no campo: {field_name}",
+
+    "P2004": "Uma restrição falhou no banco de dados: {database_error}",
+
+    "P2005": "O valor {field_value} armazenado no banco de dados para o campo {field_name} é inválido para o tipo de campo",
+
+    "P2006": "O valor fornecido {field_value} para o campo {field_name} do modelo {model_name} não é válido",
+
+    "P2007": "Erro de validação de dados {database_error}",
+
+    "P2008": "Falha na análise da consulta {query_parsing_error} em {query_position}",
+
+    "P2009": "Falha na validação da consulta: {query_validation_error} em {query_position}",
+
+    "P2010": "Falha na consulta bruta. Código: {code}. Mensagem: {message}",
+
+    "P2011": "Violação de restrição de nulo na {constraint}",
+
+    "P2012": "Faltando um valor obrigatório em {path}",
+
+    "P2013": "Faltando o argumento obrigatório {argument_name} para o campo {field_name} em {object_name}",
+
+    "P2014": "A alteração que você está tentando fazer violaria a relação requerida '{relation_name}' entre os modelos {model_a_name} e {model_b_name}",
+
+    "P2015": "Não foi possível encontrar um registro relacionado. {details}",
+
+    "P2016": "Erro na interpretação da consulta. {details}",
+
+    "P2017": "Os registros da relação {relation_name} entre os modelos {parent_name} e {child_name} não estão conectados",
+
+    "P2018": "Os registros conectados necessários não foram encontrados. {details}",
+
+    "P2019": "Erro de entrada. {details}",
+
+    "P2020": "Valor fora do intervalo para o tipo. {details}",
+
+    "P2021": "A tabela {table} não existe no banco de dados atual",
+
+    "P2022": "A coluna {column} não existe no banco de dados atual",
+
+    "P2023": "Dados inconsistentes na coluna: {message}",
+
+    "P2024": "Tempo esgotado ao buscar uma nova conexão no pool de conexões. (Mais informações: http://pris.ly/d/connection-pool (Tempo limite atual do pool de conexões: {timeout}, limite de conexões: {connection_limit})",
+
+    "P2025": "A operação {nome_operacao} falhou porque depende de um ou mais registros que eram necessários, mas não foram encontrados",
+
+    "P2026": "O provedor de banco de dados atual não suporta um recurso usado na consulta: {feature}",
+
+    "P2027": "Vários erros ocorreram no banco de dados durante a execução da consulta: {errors}",
+
+    "P2028": "Erro na API de transações: {error}",
+
+    "P2030": "Não foi possível encontrar um índice de texto completo para a pesquisa. Tente adicionar @@fulltext([Campos...]) ao seu esquema",
+
+    "P2031": "O Prisma precisa executar transações, o que requer que o servidor MongoDB seja executado como um conjunto de réplicas. Consulte os detalhes: https://pris.ly/d/mongodb-replica-set",
+
+    "P2033": "Um número usado na consulta não cabe em um inteiro de 64 bits com sinal. Considere usar BigInt como tipo de campo se estiver tentando armazenar números grandes",
+
+    "P2034": "Falha na transação devido a um conflito de gravação ou bloqueio. Tente novamente sua transação",
+
+    "P3000": "Falha ao criar o banco de dados: {database_error}",
+
+    "P3001": "Migração possível com alterações destrutivas e possível perda de dados: {migration_engine_destructive_details}",
+
+    "P3002": "A migração tentada foi revertida: {database_error}",
+
+    "P3003": "O formato das migrações foi alterado, as migrações salvas não são mais válidas. Para resolver esse problema, siga as etapas em: https://pris.ly/d/migrate",
+
+    "P3004": "O banco de dados {database_name} é um banco de dados de sistema e não deve ser alterado com prisma migrate. Conecte-se a outro banco de dados.",
+
+    "P3005": "O esquema do banco de dados não está vazio. Saiba mais sobre como criar uma linha de base em um banco de dados de produção existente: https://pris.ly/d/migrate-baseline",
+
+    "P3006": "A migração {migration_name} falhou ao ser aplicada ao banco de dados de sombra. {error_code}Erro: {inner_error}",
+
+    "P3007": "Algumas das funcionalidades de visualização solicitadas ainda não são permitidas no mecanismo de migração. Remova-as do seu modelo de dados antes de usar migrações. (bloqueadas: {list_of_blocked_features})",
+
+    "P3008": "A migração {migration_name} já está registrada como aplicada no banco de dados.",
+
+    "P3009": "migrate encontrou migrações com falha no banco de dados de destino, as novas migrações não serão aplicadas. Saiba mais sobre como resolver problemas de migração em um banco de dados de produção: https://pris.ly/d/migrate-resolve {details}",
+
+    "P3010": "O nome da migração é muito longo. Não deve ter mais de 200 caracteres (bytes).",
+
+    "P3011": "A migração {migration_name} não pode ser revertida porque nunca foi aplicada ao banco de dados. Dica: você passou o nome completo da migração? (exemplo: \"20201207184859_initial_migration\")",
+
+    "P3012": "A migração {migration_name} não pode ser revertida porque não está em um estado de falha.",
+
+    "P3013": "Arrays de provedores de fonte de dados não são mais suportados no arquivo prisma/schema.prisma. Consulte a documentação para obter mais detalhes: https://pris.ly/d/multi-provider-arrays",
+
+    "P3014": "Erro ao criar um novo migrador: {error}",
+
+    "P3015": "O arquivo de migração {migration_name} não foi encontrado na pasta de migrações.",
+
+    "P3016": "A migração {migration_name} não foi encontrada no banco de dados de destino.",
+
+    "P3017": "A migração {migration_name} não pôde ser encontrada. Certifique-se de que a migração exista e de que você incluiu o nome completo do diretório. (exemplo: \"20201207184859_initial_migration\")",
+
+    "P3018": "Falha ao aplicar uma migração. Novas migrações não podem ser aplicadas até que o erro seja resolvido. Saiba mais sobre como resolver problemas de migração em um banco de dados de produção: https://pris.ly/d/migrate-resolve Nome da migração: {migration_name} Código de erro do banco de dados: {database_error_code} Erro do banco de dados: {database_error}",
+
+    "P3019": "O provedor de dados {provider} especificado em seu esquema não corresponde ao especificado no arquivo migration_lock.toml, {expected_provider}. Remova o diretório de migração atual e inicie um novo histórico de migração com 'prisma migrate dev'. Saiba mais: https://pris.ly/d/migrate-provider-switch",
+
+    "P3020": "A criação automática de bancos de dados sombra está desabilitada no Azure SQL. Configure um banco de dados sombra usando o atributo de origem de dados 'shadowDatabaseUrl'. Leia a página de documentação para mais detalhes: https://pris.ly/d/migrate-shadow",
+
+    "P3021": "Chaves estrangeiras não podem ser criadas neste banco de dados. Saiba mais sobre como lidar com isso: https://pris.ly/d/migrate-no-foreign-keys",
+
+    "P3022": "A execução direta de declarações SQL DDL (Linguagem de Definição de Dados) está desabilitada neste banco de dados. Leia mais aqui sobre como lidar com isso: https://pris.ly/d/migrate-no-direct-ddl",
+
+    "P4000": "A operação de introspecção falhou em produzir um arquivo de esquema: {introspection_error}",
+
+    "P4001": "O banco de dados introspectado estava vazio.",
+
+    "P4002": "O esquema do banco de dados introspectado estava inconsistente: {explanation}",
+
+    "P5000": "Essa solicitação não pôde ser compreendida pelo servidor.",
+
+    "P5001": "Essa solicitação deve ser tentada novamente.",
+
+    "P5002": "A fonte de dados fornecida é inválida: Não foi possível analisar a URL da fonte de dados A URL da fonte de dados deve usar o protocolo prisma:// quando --data-proxy for usado Nenhuma chave de API válida encontrada",
+
+    "P5003": "O recurso solicitado não existe.",
+
+    "P5004": "O recurso ainda não está implementado: O evento beforeExit ainda não é suportado.",
+
+    "P5005": "O esquema precisa ser enviado.",
+
+    "P5006": "Erro desconhecido do servidor.",
+
+    "P5007": "Não autorizado, verifique sua string de conexão.",
+
+    "P5008": "Limite de uso excedido, tente novamente mais tarde.",
+
+    "P5009": "Tempo limite da solicitação.",
+
+    "P5010": "Não foi possível buscar dados do serviço.",
+
+    "P5011": "Os parâmetros da solicitação são inválidos.",
+
+    "P5012": "A versão do engine não é suportada.",
+
+    "P5013": "O engine não foi iniciado: tempo limite de verificação de integridade.",
+
+    "P5014": "Erro de inicialização do engine desconhecido (contém mensagem e logs).",
+
+    "P5015": "Erro de transação interativa: Não foi possível analisar o ID da transação interativa Não foi possível encontrar o Query Engine para o host e ID de transação especificados Não foi possível iniciar a transação interativa."
+}
