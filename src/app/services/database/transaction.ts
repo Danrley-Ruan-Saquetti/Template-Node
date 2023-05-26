@@ -1,7 +1,7 @@
 import { TError } from '@@types/error'
+import { database } from '@database'
 import { PrismaPromise } from '@prisma/client'
 import { Result } from '@util/result'
-import { database } from '.'
 
 export async function transaction<T>(handler: PrismaPromise<T>, error: { info: TError; status: number }) {
     try {

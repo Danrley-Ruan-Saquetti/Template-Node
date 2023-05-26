@@ -3,16 +3,18 @@ import { dbMemory } from './memory'
 import { getEnv } from '@util/var-env'
 
 const database =
+    dbMemory ||
     new PrismaClient({
-        log: getEnv({ name: 'ENVIRONMENT', default: 'DEVELOPMENT' }) == 'PRODUCTION' ? [] : [{ level: 'query', emit: 'event' }, 'info', 'warn', 'error'],
-    }) || dbMemory
+        log: getEnv({ name: 'NODE_ENV', default: 'development' }) == 'development' ? [] : [{ level: 'query', emit: 'event' }, 'info', 'warn', 'error'],
+    }) ||
+    dbMemory
 
 async function main() {
     try {
         if (database instanceof PrismaClient) {
             await database.$connect()
 
-            if (getEnv({ name: 'ENVIRONMENT', default: 'DEVELOPMENT' }) == 'DEVELOPMENT') {
+            if (getEnv({ name: 'NODE_ENV', default: 'development' }) == 'development') {
                 database.$on('query', e => {})
             }
 
@@ -27,8 +29,5 @@ async function main() {
 }
 
 main()
-
-
-database.$queryRaw``
 
 export { database, TModelUser }

@@ -18,7 +18,7 @@
         "emitDecoratorMetadata": true,
         "baseUrl": ".",
         "paths": {
-            "@database/*": ["./src/app/database/*"],
+            "@database": ["./src/app/database"],
             "@util/*": ["./src/app/util/*"],
             "@module/*": ["./src/app/modules/*"],
             "@service/*": ["./src/app/services/*"],
