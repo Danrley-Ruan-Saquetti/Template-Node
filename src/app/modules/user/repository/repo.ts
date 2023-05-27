@@ -2,7 +2,6 @@ import { Prisma } from '@prisma/client'
 import { database } from '@database'
 import { IUser } from '@module/user/schema'
 import { Result } from '@util/result'
-import { catchMessageError } from '@service/database-error'
 
 type TUserGetPayload = boolean | null | undefined | { select?: Prisma.UserSelect | null }
 type UserPropSelect<T extends TUserGetPayload> = UserGetPayload<T>
@@ -54,7 +53,7 @@ async function create<T extends UserCreateArgs>(args: T) {
             Result.success({ user: res })
         )
         .catch(err =>
-            Result.failure({ title: 'Register User', message: [{ message: catchMessageError('Register User', err), origin: 'user' }] }, 400)
+            Result.failure({ title: 'Register User', message: [{ message: 'Cannot register User', origin: 'user' }] }, 400)
         )
 
     return response.getResult()
@@ -66,7 +65,7 @@ async function createMany<T extends UserCreateManyArgs>(args: T) {
             Result.success(res)
         )
         .catch(err =>
-            Result.failure({ title: 'Register Users', message: [{ message: catchMessageError('Register Users', err), origin: 'user' }] }, 400)
+            Result.failure({ title: 'Register Users', message: [{ message: 'Cannot register Users', origin: 'user' }] }, 400)
         )
 
     return response.getResult()
@@ -78,7 +77,7 @@ async function upsert<T extends UserUpsertArgs>(args: T) {
             Result.success({ user: res })
         )
         .catch(err =>
-            Result.failure({ title: 'Update/Register User', message: [{ message: catchMessageError('Update/Register User', err), origin: 'user' }] }, 400)
+            Result.failure({ title: 'Update/Register User', message: [{ message: 'Cannot update/register User', origin: 'user' }] }, 400)
         )
 
     return response.getResult()
@@ -90,7 +89,7 @@ async function update<T extends UserUpdateArgs>(args: T) {
             Result.success({ user: res })
         )
         .catch(err =>
-            Result.failure({ title: 'Update User', message: [{ message: catchMessageError('Update User', err), origin: 'user' }] }, 400)
+            Result.failure({ title: 'Update User', message: [{ message: 'Cannot update User', origin: 'user' }] }, 400)
         )
 
     return response.getResult()
@@ -102,7 +101,7 @@ async function updateMany<T extends UserUpdateManyArgs>(args: T) {
             Result.success(res)
         )
         .catch(err =>
-            Result.failure({ title: 'Update Users', message: [{ message: catchMessageError('Update Users', err), origin: 'user' }] }, 400)
+            Result.failure({ title: 'Update Users', message: [{ message: 'Cannot update Users', origin: 'user' }] }, 400)
         )
 
     return response.getResult()
@@ -114,7 +113,7 @@ async function findFirst<T extends UserFindFirstArgs>(args: T) {
             Result.success({ user: res })
         )
         .catch(err =>
-            Result.failure({ title: 'Find User', message: [{ message: catchMessageError('Find User', err), origin: 'user' }] }, 400)
+            Result.failure({ title: 'Find User', message: [{ message: 'Cannot find User', origin: 'user' }] }, 400)
         ) as Result<UserFindFirstResponse<T>>
 
     return response.getResult()
@@ -126,7 +125,7 @@ async function findUnique<T extends UserFindUniqueArgs>(args: T) {
             Result.success({ user: res })
         )
         .catch(err =>
-            Result.failure({ title: 'Find User', message: [{ message: catchMessageError('Find User', err), origin: 'user' }] }, 400)
+            Result.failure({ title: 'Find User', message: [{ message: 'Cannot find User', origin: 'user' }] }, 400)
         ) as Result<UserFindUniqueResponse<T>>
 
     return response.getResult()
@@ -138,7 +137,7 @@ async function findFirstOrThrow<T extends UserFindFirstOrThrowArgs>(args: T) {
             Result.success({ user: res })
         )
         .catch(err =>
-            Result.failure({ title: 'Find User', message: [{ message: catchMessageError('Find User', err), origin: 'user' }] }, 400)
+            Result.failure({ title: 'Find User', message: [{ message: 'Cannot find User', origin: 'user' }] }, 400)
         ) as Result<UserFindFirstOrThrowResponse<T>>
 
     return response.getResult()
@@ -150,7 +149,7 @@ async function findUniqueOrThrow<T extends UserFindUniqueOrThrowArgs>(args: T) {
             Result.success({ user: res })
         )
         .catch(err =>
-            Result.failure({ title: 'Find User', message: [{ message: catchMessageError('Find User', err), origin: 'user' }] }, 400)
+            Result.failure({ title: 'Find User', message: [{ message: 'Cannot find User', origin: 'user' }] }, 400)
         ) as Result<UserFindUniqueOrThrowResponse<T>>
 
     return response.getResult()
@@ -162,7 +161,7 @@ async function findMany<T extends UserFindManyArgs>(args: T) {
             Result.success({ users: res })
         )
         .catch(err =>
-            Result.failure({ title: 'Find Users', message: [{ message: catchMessageError('Find Users', err), origin: 'user' }] }, 400)
+            Result.failure({ title: 'Find Users', message: [{ message: 'Cannot find Users', origin: 'user' }] }, 400)
         ) as Result<UserFindManyResponse<T>>
 
     return response.getResult()
@@ -174,7 +173,7 @@ async function remove<T extends UserDeleteArgs>(args: T) {
             Result.success(true)
         )
         .catch(err =>
-            Result.failure({ title: 'Remove User', message: [{ message: catchMessageError('Remove User', err), origin: 'user' }] }, 400)
+            Result.failure({ title: 'Remove User', message: [{ message: 'Cannot remove User', origin: `user - ${err.code}` }] }, 400)
         )
 
     return response.getResult()
@@ -186,7 +185,7 @@ async function removeMany<T extends UserDeleteManyArgs>(args: T) {
             Result.success(res)
         )
         .catch(err =>
-            Result.failure({ title: 'Remove Users', message: [{ message: catchMessageError('Remove Users', err), origin: 'user' }] }, 400)
+            Result.failure({ title: 'Remove Users', message: [{ message: 'Cannot remove Users', origin: 'user' }] }, 400)
         )
 
     return response.getResult()

@@ -6,6 +6,8 @@
     "scripts": {
         "start": "node dist/index.js",
         "start:dev": "tsx watch src/index.ts",
+        "start:memory": "tsx watch src/index.ts --db=memory",
+        "debug": "tsx watch src/index.ts --debug",
         "setup:production": "npm i && npm run setup:prisma && npm run build:babel && npm run start",
         "setup:dev": "npm i && npm run setup:prisma && npm run start:dev",
         "setup:prisma": "npm run prisma:migrate && npm run prisma:generate",

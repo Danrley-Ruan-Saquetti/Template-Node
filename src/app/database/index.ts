@@ -1,22 +1,38 @@
 import { Prisma, PrismaClient, User as TModelUser } from '@prisma/client'
 import { dbMemory } from './memory'
 import { getEnv } from '@util/var-env'
+import { getFlag } from '@util/command-line-flags'
 
-const database =
-    dbMemory ||
-    new PrismaClient({
-        log: getEnv({ name: 'NODE_ENV', default: 'development' }) == 'development' ? [] : [{ level: 'query', emit: 'event' }, 'info', 'warn', 'error'],
-    }) ||
-    dbMemory
+const ENV = getEnv({ name: 'NODE_ENV', default: 'development' })
+
+const logs: ('query' | 'info' | 'warn' | 'error')[] = []
+
+if (getFlag('--debug')) {
+    /* eslint no-unused-expressions: ["off"] */
+    getFlag('query') && logs.push('query')
+    getFlag('info') && logs.push('info')
+    getFlag('warn') && logs.push('warn')
+    getFlag('error') && logs.push('error')
+
+    if (logs.length == 0) {
+        logs.push('query')
+        logs.push('info')
+        logs.push('warn')
+        logs.push('error')
+    }
+}
+
+const prismaClient = new PrismaClient({ log: logs })
+
+const dbClient = ENV == 'production' ? prismaClient : getFlag('--db') == 'memory' ? dbMemory : prismaClient
+
+// @ts-expect-error
+const database: PrismaClient<{ log: ('info' | 'query' | 'warn' | 'error')[] }, never, false> = dbClient
 
 async function main() {
     try {
         if (database instanceof PrismaClient) {
             await database.$connect()
-
-            if (getEnv({ name: 'NODE_ENV', default: 'development' }) == 'development') {
-                database.$on('query', e => {})
-            }
 
             console.log('[Database] Database connected successfully')
         } else {
