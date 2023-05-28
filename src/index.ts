@@ -1,6 +1,5 @@
-import { getAllFlags, getFlag } from '@util/command-line-flags'
 import { app } from './app/index'
-import { getEnv } from '@util/var-env'
+import {getEnv, getAllFlags, getFlag} from '@esliph/util'
 
 const PORT = getEnv({ name: 'PORT', default: 8080 })
 

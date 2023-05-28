@@ -1,7 +1,6 @@
+import { getEnv, getFlag } from '@esliph/util';
 import { Prisma, PrismaClient, User as TModelUser } from '@prisma/client'
 import { dbMemory } from './memory'
-import { getEnv } from '@util/var-env'
-import { getFlag } from '@util/command-line-flags'
 
 const ENV = getEnv({ name: 'NODE_ENV', default: 'development' })
 
