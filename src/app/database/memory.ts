@@ -1,5 +1,4 @@
 import { IUser } from '@module/user/schema'
-import { generatedId } from '@util/generate-id'
 
 type PropGeneric<TProp> = { [nameProp: string]: TProp }
 type TModel<TDcoument = any> = {

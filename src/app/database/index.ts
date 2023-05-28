@@ -1,4 +1,4 @@
-import { getEnv, getFlag } from '@esliph/util';
+import { getEnv, getFlag } from '@esliph/util'
 import { Prisma, PrismaClient, User as TModelUser } from '@prisma/client'
 import { dbMemory } from './memory'
 

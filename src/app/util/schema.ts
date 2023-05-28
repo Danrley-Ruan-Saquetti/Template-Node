@@ -1,4 +1,4 @@
-import { ErrorGeneral } from '@util/error'
+import { ErrorGeneral } from '@esliph/util'
 import { z } from 'zod'
 
 export const SchemaDefault = z.object({

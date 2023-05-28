@@ -1,7 +1,7 @@
 import { Prisma } from '@prisma/client'
 import { database } from '@database'
 import { IUser } from '@module/user/schema'
-import { Result } from '@util/result'
+import { Result } from '@esliph/util'
 
 type TUserGetPayload = boolean | null | undefined | { select?: Prisma.UserSelect | null }
 type UserPropSelect<T extends TUserGetPayload> = UserGetPayload<T>
